@@ -1,0 +1,31 @@
+// ⚠️ 제안용 규칙 — Firebase 에뮬레이터로 시험하지 못했어요. 게시 전에 콘솔의 "규칙 플레이그라운드"로 확인하세요.
+// 현재 규칙(firestore.rules)에 더해: 문서 ID 형식 검사, 모임 문서 필드 제한, 멤버 수 제한.
+// 화면 쪽에서도 같은 검사를 하므로(9단계), 이 규칙을 안 써도 XSS는 막혀 있어요. 이 규칙은 '쓰레기 데이터'를 서버에서 한 번 더 거르는 용도예요.
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function validId(id)  { return id.matches('^[a-z0-9-]{2,30}$'); }
+    function validKey(key){ return key.matches('^[a-z0-9-]{2,50}$'); }
+    function safeDoc(id)  { return id.matches('^[A-Za-z0-9_-]{1,70}$'); }
+    function small()      { return request.resource.data.size() <= 20; }
+
+    match /locks/{room} {
+      allow get: if validId(room);
+      allow create: if validId(room) && request.resource.data.keys().hasOnly(['at']);
+    }
+
+    match /rooms/{key}/trips/{trip} {
+      allow get, list: if validKey(key);
+      allow create, update: if validKey(key) && safeDoc(trip) && small()
+        && request.resource.data.keys().hasOnly(['name', 'people', 'c'])
+        && request.resource.data.people is list && request.resource.data.people.size() <= 50;
+      allow delete: if validKey(key);
+
+      match /{sub}/{doc} {
+        allow get, list: if validKey(key) && sub in ['items', 'transfers', 'plan'];
+        allow create, update: if validKey(key) && sub in ['items', 'transfers', 'plan'] && safeDoc(doc) && small();
+        allow delete: if validKey(key) && sub in ['items', 'transfers', 'plan'];
+      }
+    }
+  }
+}

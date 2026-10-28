@@ -1,0 +1,249 @@
+--- a/index.html (8단계)
++++ b/index.html (9단계)
+@@ -51,9 +51,9 @@
+ <style>
+ :root{
+   --bg:#F2F4F6; --card:#FFFFFF; --fill:#F2F4F6; --fill-2:#E5E8EB;
+-  --ink:#191F28; --ink-2:#333D4B; --sub:#4E5968; --muted:#8B95A1; --faint:#B0B8C1;
+-  --blue:#3182F6; --blue-press:#1B64DA; --blue-soft:#E8F3FF;
+-  --red:#F04452; --red-soft:#FFEEEE; --green:#03B26C; --green-soft:#E6F8EF; --purple:#7C5CFF; --purple-soft:#F1EDFF; --line:#E5E8EB;
++  --ink:#191F28; --ink-2:#333D4B; --sub:#4E5968; --muted:#686F78; --faint:#B0B8C1;
++  --blue:#286AC9; --blue-press:#1B64DA; --blue-soft:#E8F3FF;
++  --red:#C43743; --red-soft:#FFEEEE; --green:#027E4C; --green-soft:#E6F8EF; --purple:#6E51E2; --purple-soft:#F1EDFF; --line:#E5E8EB;
+   color-scheme:light;
+   --font:"Pretendard Variable","Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+   box-sizing:border-box;
+@@ -599,7 +599,7 @@
+ option:disabled{color:var(--faint)}
+ 
+ /* ===== 4단계: 헤더 요약 · 대시보드 · 메뉴 · 모임 설정 ===== */
+-:root{--brand:#5B5CF6;--brand-2:#7C5CFF;--brand-soft:#EEEDFF}
++:root{--brand:#5657E9;--brand-2:#6E51E2;--brand-soft:#EEEDFF}   /* 글자 대비 4.5:1 이상 (WCAG AA) */
+ .head-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+ .hm{display:inline-flex;align-items:center;gap:5px;min-height:32px;padding:4px 12px;border-radius:999px;background:var(--card);font-size:13px;font-weight:600;color:var(--sub)}
+ button.hm:hover{color:var(--ink)}
+@@ -699,6 +699,7 @@
+ #setSheet .danger{margin-top:12px;min-height:44px}
+ 
+ /* ===== 8단계: 모바일 앱처럼 ===== */
++.sum-row .v.empty,.amt.zero{color:var(--muted)}
+ .toast{white-space:normal;width:max-content;max-width:calc(100vw - 32px);text-align:center;line-height:1.45}
+ .ro-banner.err{background:var(--red-soft);color:var(--red)}
+ .ro-reload{margin-left:6px;min-height:32px;padding:4px 12px;border-radius:999px;background:var(--card);color:var(--ink);font-size:13px;font-weight:700;vertical-align:middle}
+@@ -729,12 +730,12 @@
+ 
+ /* ===== landing (3단계: 메인·모임 만들기) ===== */
+ body.landing-mode,body.gate-mode{background:#FBFAFF}
+-.landing{--b1:#7C5CFF;--b2:#4F7BFF;--b-soft:#F1EEFF;position:relative;max-width:520px;padding:20px 20px 48px;word-break:keep-all}
++.landing{--b1:#7758F4;--b2:#4F7BFF;--b-soft:#F1EEFF;position:relative;max-width:520px;padding:20px 20px 48px;word-break:keep-all}
+ .l-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(420px 320px at 85% -40px,rgba(124,92,255,.16),transparent 70%),radial-gradient(380px 300px at -60px 220px,rgba(79,123,255,.12),transparent 70%)}
+ .l-brand{display:flex;align-items:center;gap:10px;padding:4px 0 8px}
+ .l-brand img{width:36px;height:36px;border-radius:10px;flex:none}
+ .l-word{font-size:22px;font-weight:800;letter-spacing:-0.03em;color:var(--ink)}
+-.l-tag{font-size:12px;font-weight:600;color:var(--b1);background:var(--b-soft);border-radius:999px;padding:3px 9px}
++.l-tag{font-size:12px;font-weight:600;color:#6E51E2;background:var(--b-soft);border-radius:999px;padding:3px 9px}
+ .landing .l-hero{padding:28px 0 8px}
+ .landing .l-hero h1{font-size:32px;line-height:1.3}
+ .l-grad{background:linear-gradient(120deg,var(--b1),var(--b2));-webkit-background-clip:text;background-clip:text;color:transparent}
+@@ -772,7 +773,7 @@
+ .l-type strong{display:block;font-size:17px;font-weight:700}
+ .l-type small{display:block;font-size:14px;color:var(--sub);margin-top:2px}
+ .l-type .chev{margin-left:auto;color:var(--faint);font-size:22px}
+-.l-chip{display:inline-flex;align-items:center;gap:6px;margin:4px 0 0;padding:5px 12px;border-radius:999px;background:var(--b-soft);color:var(--b1);font-size:13px;font-weight:700}
++.l-chip{display:inline-flex;align-items:center;gap:6px;margin:4px 0 0;padding:5px 12px;border-radius:999px;background:var(--b-soft);color:#6E51E2;font-size:13px;font-weight:700}
+ .landing .l-go,.landing .l-go:hover{background:linear-gradient(120deg,var(--b1),var(--b2));color:#fff;min-height:52px}
+ .landing .l-go:disabled{background:var(--fill-2);color:var(--faint)}
+ .landing .l-actions .btn.grey{min-height:52px}
+@@ -1149,7 +1150,7 @@
+ if(!state||!Array.isArray(state.trips)||!state.trips.length){const t=newTrip("");t.c=Date.now();state={v:1,active:t.id,trips:[t]};}
+ const cur=()=>state.trips.find(t=>t.id===state.active)||state.trips[0];
+ const pname=(t,id)=>{const p=t.people.find(p=>p.id===id);return p?(p.name||"이름 없음"):"?";};
+-const COLORS=["#3182F6","#F04452","#03B26C","#FE9800","#8B5CF6","#00A8C6","#E64980","#6B7684"];
++const COLORS=["#2B72D8","#D33B48","#028550","#A76400","#8457E9","#007F96","#CC4071","#6B7684"];   // white initials stay readable (4.5:1+)
+ const pcolor=(t,id)=>COLORS[Math.max(0,t.people.findIndex(p=>p.id===id))%COLORS.length];
+ const initial=n=>(String(n||"?").trim()[0]||"?");
+ const av=(t,id,cls="")=>`<span class="av ${cls}" style="--c:${pcolor(t,id)}">${esc(initial(pname(t,id)))}</span>`;
+@@ -1233,11 +1234,19 @@
+   state.trips=state.trips.filter(x=>x.id!==t.id);
+   t.items=[];t.transfers=[];t.plan=emptyPlan();
+   if(!state.trips.length){const n=newTrip("");n.c=Date.now();state.trips.push(n);}
+-  if(shared){pushChanges();}
++  if(shared){pushChanges();purgeTrip(t.id);}
+   save();
+   if(state.active===id||!state.trips.some(x=>x.id===state.active))switchTrip(state.trips[0].id);else renderTabs();
+   toast("삭제했어요");
+ }
++// the trip's sub-documents (items, transfers, plan) are only loaded for the open trip, so delete them explicitly
++async function purgeTrip(tid){
++  for(const sub of ["items","transfers","plan"]){
++    try{const qs=await db.collection(`trips/${tid}/${sub}`).get();
++      for(const d of qs.docs){const p=`trips/${tid}/${sub}/${d.id}`;known.delete(p);tomb.add(p);write(p,null,"del");}}
++    catch(e){console.warn("purge",sub,e);}
++  }
++}
+ function renderPeople(){
+   const t=cur();
+   $("#people").innerHTML=t.people.length?t.people.map(p=>`<span class="member" data-pid="${p.id}">${av(t,p.id)}<input class="in-pname" value="${esc(p.name)}" aria-label="이름" style="--len:${Math.max(2,(p.name||"").length)}"><button class="paybtn${hasPay(p)?" on":""}" data-pay="${p.id}" aria-label="${esc(p.name)} 송금 정보 ${hasPay(p)?"수정":"등록"}" title="송금 받을 계좌·링크"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19"/><path d="M6.5 15h4"/></svg><span>${hasPay(p)?"계좌":"계좌 +"}</span></button><button class="x" data-delp="${p.id}" aria-label="${esc(p.name)} 삭제">✕</button></span>`).join(""):`<p class="hint">함께한 사람을 먼저 추가해주세요.</p>`;
+@@ -1395,10 +1404,20 @@
+ let inflight=0;
+ const loaded={tid:null,items:false,transfers:false,plan:false};
+ let unsubItems=null,unsubTx=null,unsubPlan=null;
+-const nPerson=p=>{const o={id:p.id,name:p.name||""};if(p.toss)o.toss=p.toss;if(p.kakao)o.kakao=p.kakao;if(p.bank)o.bank=p.bank;return o;};
+-const nTrip=t=>({name:t.name||"",people:(t.people||[]).map(nPerson),c:t.c||0});
+-const nItem=i=>{const o={name:i.name||"",amount:+i.amount||0,payer:i.payer||"",shares:i.shares||{},memo:i.memo||"",c:i.c||0};if(i.ref)o.ref=i.ref;return o;};   // ref: the schedule stop this expense belongs to
+-const nTx=x=>({from:x.from,to:x.to,amount:+x.amount||0,memo:x.memo||"",g:x.g||"",c:x.c||0});
++/* 받는 데이터 검증: 링크만 있으면 누구나 DB에 직접 쓸 수 있으니, 화면에 쓰기 전에 모양을 강제한다.
++   ID는 영문·숫자·_- 만(HTML 속성에 들어가므로), 날짜·시간은 정해진 형식만, 글자는 길이 제한. 글자는 화면에 넣을 때 다시 esc 처리된다. */
++const SAFE_ID=/^[A-Za-z0-9_-]{1,64}$/,DATE_RE=/^\d{4}-\d{2}-\d{2}$/,TIME_RE=/^\d{2}:\d{2}$/;
++const sid=v=>typeof v==="string"&&SAFE_ID.test(v)?v:"";
++const str=(v,n=200)=>typeof v==="string"?v.slice(0,n):"";
++const num=v=>{const n=+v;return Number.isFinite(n)?n:0;};
++const dates=a=>Array.isArray(a)?a.filter(s=>typeof s==="string"&&DATE_RE.test(s)):[];
++const ids=a=>Array.isArray(a)?a.filter(s=>sid(s)):[];
++const own=(o,k)=>typeof k==="string"&&Object.prototype.hasOwnProperty.call(o,k);
++const nPerson=p=>{const o={id:sid(p&&p.id),name:str(p&&p.name,40)};if(p&&p.toss)o.toss=str(p.toss,80);if(p&&p.kakao)o.kakao=str(p.kakao,200);if(p&&p.bank)o.bank=str(p.bank,80);return o;};
++const nTrip=t=>{const seen=new Set();return {name:str(t.name,40),people:(Array.isArray(t.people)?t.people:[]).map(nPerson).filter(p=>p.id&&!seen.has(p.id)&&seen.add(p.id)),c:num(t.c)};};
++const nShares=sh=>{const o={};if(sh&&typeof sh==="object")for(const k in sh){const v=sh[k];if(sid(k)&&(v==="x"||(typeof v==="number"&&Number.isFinite(v))))o[k]=v;}return o;};
++const nItem=i=>{const o={name:str(i.name,40),amount:num(i.amount),payer:sid(i.payer),shares:nShares(i.shares),memo:str(i.memo,80),c:num(i.c)};if(sid(i.ref))o.ref=i.ref;return o;};   // ref: the schedule stop this expense belongs to
++const nTx=x=>({from:sid(x.from),to:sid(x.to),amount:num(x.amount),memo:str(x.memo,80),g:sid(x.g),c:num(x.c)});
+ const emptyPlan=()=>({avail:{},tavail:{},no:{},maybe:{},tno:{},tmaybe:{},opts:[],votes:{},fix:null,pfix:"",host:"",set:{mode:"day",n:2},cfg:null,extra:{}});
+ // 모임 유형 & 메뉴. cfg is null for meetings made before 4단계: every menu stays on, as before.
+ const TYPES={meet:{ic:"📅",name:"약속 잡기",desc:"날짜와 장소를 함께 결정하는 모임"},trip:{ic:"🧳",name:"여행 계획",desc:"날짜별 일정과 장소, 비용을 관리하는 모임"},money:{ic:"🧾",name:"비용 정산",desc:"공동 지출과 송금 내역을 정리하는 모임"}};
+@@ -1430,23 +1449,26 @@
+   if(p.set&&(p.set.mode!=="day"||p.set.n!==2))m.set("s_main",{mode:p.set.mode,n:p.set.n});
+   if(p.host)m.set("h_main",{p:p.host});
+   if(p.pfix)m.set("q_main",{p:p.pfix});
+-  if(p.cfg&&TYPES[p.cfg.type])m.set("g_main",{type:p.cfg.type,vote:p.cfg.vote?1:0,sched:p.cfg.sched?1:0,money:p.cfg.money?1:0});
++  if(p.cfg&&own(TYPES,p.cfg.type))m.set("g_main",{type:p.cfg.type,vote:p.cfg.vote?1:0,sched:p.cfg.sched?1:0,money:p.cfg.money?1:0});
+   for(const id in (p.extra||{}))if(!m.has(id))m.set(id,p.extra[id]);
+   return m;
+ }
++const OPT_K=["time","stay","place","menu","move"];
+ function planFrom(m){
+-  const p=emptyPlan();
+-  for(const [id,b] of m){const k=id.slice(0,2),x=id.slice(2);if(!x||!b)continue;
+-    if(k==="a_")p.avail[x]=Array.isArray(b.d)?b.d.filter(s=>typeof s==="string"):[];
+-    else if(k==="t_")p.tavail[x]=Array.isArray(b.d)?b.d.filter(s=>typeof s==="string"):[];
+-    else if(k==="o_")p.opts.push({id:x,k:b.k||"",label:b.label||"",url:b.url||"",date:b.date||"",from:b.from||"",to:b.to||"",price:+b.price||0,md:b.md==="trip"||b.k==="stay"?"trip":"day",day:+b.day||0,at:typeof b.at==="string"?b.at:"",lat:+b.lat||0,lng:+b.lng||0,addr:typeof b.addr==="string"?b.addr:"",desc:typeof b.ds==="string"?b.ds:"",rv:b.rv==="need"||b.rv==="done"?b.rv:"",rn:typeof b.rn==="string"?b.rn:"",od:+b.od||0,c:+b.c||0});
+-    else if(k==="s_")p.set={mode:b.mode==="trip"?"trip":"day",n:Math.min(9,Math.max(1,+b.n||2))};
+-    else if(k==="f_")p.fix={date:b.date||"",e:b.e||"",t:b.t||"",s:b.s||"",p:b.p||"",m:b.m||""};
+-    else if(k==="v_")p.votes[x]=Array.isArray(b.o)?b.o.filter(s=>typeof s==="string"):[];
+-    else if(k==="x_"||k==="y_"){const arr=a=>Array.isArray(a)?a.filter(s=>typeof s==="string"):[];p[k==="x_"?"no":"tno"][x]=arr(b.n);p[k==="x_"?"maybe":"tmaybe"][x]=arr(b.m);}
+-    else if(k==="h_"){p.host=typeof b.p==="string"?b.p:"";}
+-    else if(k==="q_"){p.pfix=typeof b.p==="string"?b.p:"";}
+-    else if(k==="g_"){if(TYPES[b.type])p.cfg={type:b.type,vote:b.vote?1:0,sched:b.sched?1:0,money:b.money?1:0};}
++  const p=emptyPlan(),tm=v=>typeof v==="string"&&TIME_RE.test(v)?v:"",dt=v=>typeof v==="string"&&DATE_RE.test(v)?v:"";
++  for(const [id,b] of m){const k=id.slice(0,2),x=id.slice(2);if(!x||!b||typeof b!=="object")continue;
++    if(x!=="main"&&!sid(x)){continue;}              // unsafe document id: ignore
++    if(k==="a_")p.avail[x]=dates(b.d);
++    else if(k==="t_")p.tavail[x]=dates(b.d);
++    else if(k==="o_"){if(!OPT_K.includes(b.k))continue;
++      p.opts.push({id:x,k:b.k,label:str(b.label,40),url:str(b.url,300),date:dt(b.date),from:tm(b.from),to:tm(b.to),price:Math.max(0,num(b.price)),md:b.md==="trip"||b.k==="stay"?"trip":"day",day:Math.max(0,Math.round(num(b.day))),at:tm(b.at),lat:num(b.lat),lng:num(b.lng),addr:str(b.addr,80),desc:str(b.ds,200),rv:b.rv==="need"||b.rv==="done"?b.rv:"",rn:str(b.rn,40),od:num(b.od),c:num(b.c)});}
++    else if(k==="s_"){const n=Math.round(num(b.n))||2;p.set={mode:b.mode==="trip"?"trip":"day",n:Math.min(9,Math.max(1,n))};}
++    else if(k==="f_"){const d=dt(b.date);p.fix=d?{date:d,e:dt(b.e),t:sid(b.t),s:sid(b.s),p:sid(b.p),m:sid(b.m)}:null;}
++    else if(k==="v_")p.votes[x]=ids(b.o);
++    else if(k==="x_"||k==="y_"){p[k==="x_"?"no":"tno"][x]=dates(b.n);p[k==="x_"?"maybe":"tmaybe"][x]=dates(b.m);}
++    else if(k==="h_"){p.host=sid(b.p);}
++    else if(k==="q_"){p.pfix=sid(b.p);}
++    else if(k==="g_"){if(own(TYPES,b.type))p.cfg={type:b.type,vote:b.vote?1:0,sched:b.sched?1:0,money:b.money?1:0};}
+     else p.extra[id]=b;}   // written by a newer version: keep it as is so this one never deletes it
+   p.opts.sort((a,b)=>a.c-b.c);return p;
+ }
+@@ -1699,7 +1721,7 @@
+ }
+ // merge a remote collection into a local array, keeping local edits that are not yet saved
+ function mergeList(arr,docs,pathOf,norm,make){
+-  const remote=new Map();docs.forEach(d=>{const b=d.data();if(b)remote.set(d.id,norm(b));});
++  const remote=new Map();docs.forEach(d=>{const b=d.data();if(b&&sid(d.id))remote.set(d.id,norm(b));});
+   const out=[];
+   for(const loc of arr){
+     const r=remote.get(loc.id);remote.delete(loc.id);
+@@ -1751,7 +1773,7 @@
+   unsubPlan=db.collection(`trips/${tid}/plan`).onSnapshot(qs=>{
+     const tr=state.trips.find(x=>x.id===tid);if(!tr||loaded.tid!==tid)return;
+     const local=planDocs(tr),remote=new Map(),out=new Map();
+-    qs.docs.forEach(d=>{const b=d.data();if(!b)return;const n=planDocs({plan:planFrom(new Map([[d.id,b]]))}).get(d.id);if(n)remote.set(d.id,n);});
++    qs.docs.forEach(d=>{const b=d.data();if(!b||!/^[a-z]_/.test(d.id))return;const n=planDocs({plan:planFrom(new Map([[d.id,b]]))}).get(d.id);if(n)remote.set(d.id,n);});
+     for(const [id,lb] of local){const rb=remote.get(id);remote.delete(id);const m=mergeOne(pPlan(tid,id),lb,rb);if(m!==undefined)out.set(id,m);}
+     for(const [id,rb] of remote){const m=mergeOne(pPlan(tid,id),undefined,rb);if(m!==undefined)out.set(id,m);}
+     const before=loaded.plan?J([...planDocs(tr)]):null;
+@@ -2141,7 +2163,7 @@
+ 
+ /* ---------- export: image & excel ---------- */
+ /* ---------- 카카오맵 ---------- */
+-const DAY_COLORS=["#3182F6","#7C5CFF","#F04452","#03B26C","#FE9800","#00A8C6","#E64980","#6B7684","#3182F6","#7C5CFF"];
++const DAY_COLORS=["#2B72D8","#7758F4","#D33B48","#028550","#A76400","#007F96","#CC4071","#6B7684","#2B72D8","#7758F4"];
+ const dayColor=i=>DAY_COLORS[(i-1)%DAY_COLORS.length];
+ let kakaoReady=null;
+ let mapErr="";
+@@ -2631,7 +2653,7 @@
+     const isFix=pl.fix&&pl.fix.date===start&&(pl.fix.e||pl.fix.date)===end;
+     return `<div class="row"><div class="mid"><div class="t">${i===0?'<span class="lead">추천</span>':""}${rangeLabel(start,end,!trip)}${all?'<span class="chip-all">모두 가능</span>':""}${isFix?'<span class="pfix-badge" style="margin-left:6px">확정</span>':""}</div>
+       <div class="who-l"><b>가능</b> ${names(who)}</div>${mb.length?`<div class="who-l m"><b>미정</b> ${names(mb)}</div>`:""}${no.length?`<div class="who-l n"><b>불가</b> ${names(no)}</div>`:""}${rest.length?`<div class="who-l"><b>미응답</b> ${names(rest)}</div>`:""}
+-      ${pl.fix?"":`<button type="button" class="btn sm fixpick" data-fixpick="${start}|${end}" ${okFix?"":"disabled"}>이 ${trip?"기간":"날"}로 확정</button>`}</div><div class="r"><div class="amt num plus">${who.length}/${total}명</div></div></div>`;}).join("")+(!okFix&&!pl.fix?`<p class="host-note">관리자 ${esc(pname(t,hostOf(t)))}님만 확정할 수 있어요</p>`:"")
++      ${pl.fix?"":`<button type="button" class="btn sm fixpick" data-fixpick="${start}|${end}" ${okFix?"":"disabled"}>이 ${trip?"기간으로":"날로"} 확정</button>`}</div><div class="r"><div class="amt num plus">${who.length}/${total}명</div></div></div>`;}).join("")+(!okFix&&!pl.fix?`<p class="host-note">관리자 ${esc(pname(t,hostOf(t)))}님만 확정할 수 있어요</p>`:"")
+     :`<p class="hint" style="padding:6px 0">${trip?`아직 ${tripLen(t)}일 연속으로 가능한 기간이 없어요`:"아직 가능으로 표시된 날이 없어요"}</p>`;
+   // 참여자별 응답 현황
+   const done=t.people.filter(p=>responded(t,p.id));
+@@ -2906,7 +2928,7 @@
+ }
+ // a menu with records in it always shows, so nothing anyone entered is ever out of reach
+ function menus(t){const c=P(t).cfg,o={};MENU_KEYS.forEach(k=>{o[k]=!c||!!c[k]||hasData(t,k);});return o;}
+-const typeOf=t=>{const c=P(t).cfg;if(c&&TYPES[c.type])return c.type;if(isTrip(t))return "trip";return t.items.length&&!hasData(t,"vote")?"money":"meet";};
++const typeOf=t=>{const c=P(t).cfg;if(c&&own(TYPES,c.type))return c.type;if(isTrip(t))return "trip";return t.items.length&&!hasData(t,"vote")?"money":"meet";};
+ function renderNav(){
+   if(!state)return;const t=cur();if(!t)return;const m=menus(t);
+   if(MENU_KEYS.includes(view)&&!m[view]){setView("home");return;}
+@@ -3035,6 +3057,22 @@
+   if(e.target.closest("#setDelete")){$("#setSheet").hidden=true;deleteTrip(t.id);}
+ });
+ 
++/* ---------- 모달(아래 시트) 키보드 접근성: 열리면 안으로 포커스, Tab은 시트 안에서만, 닫히면 원래 버튼으로 ---------- */
++const FOCUSABLE='button:not([disabled]),[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
++const openSheet0=()=>[...document.querySelectorAll(".psheet")].find(x=>!x.hidden);
++const sheetBack=new Map();
++const sheetObs=new MutationObserver(ms=>ms.forEach(m=>{const el=m.target;
++  if(!el.hidden){sheetBack.set(el,document.activeElement);setTimeout(()=>{if(!el.hidden&&!el.contains(document.activeElement)){const f=el.querySelector(".psheet-box "+FOCUSABLE.split(",").join(",.psheet-box "));if(f)f.focus();}},40);}
++  else{const b=sheetBack.get(el);sheetBack.delete(el);if(b&&document.contains(b)&&!openSheet0())b.focus({preventScroll:true});}
++}));
++document.querySelectorAll(".psheet").forEach(el=>sheetObs.observe(el,{attributes:true,attributeFilter:["hidden"]}));
++document.addEventListener("keydown",e=>{if(e.key!=="Tab")return;const sh=openSheet0();if(!sh)return;
++  const f=[...sh.querySelectorAll(FOCUSABLE)].filter(x=>x.offsetParent!==null);if(!f.length)return;
++  const first=f[0],last=f[f.length-1];
++  if(!sh.contains(document.activeElement)){e.preventDefault();first.focus();}
++  else if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
++  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
++});
+ /* ---------- 모바일 키보드 ---------- */
+ const COARSE=matchMedia("(pointer:coarse)").matches;
+ const isTyping=el=>!!el&&(el.tagName==="TEXTAREA"||(el.tagName==="INPUT"&&!["checkbox","radio","button","submit","range","color","file"].includes(el.type)));
+@@ -3196,7 +3234,7 @@
+   showStep(["type","join"].includes(h)?h:"home",false);
+ }
+ let NEW=null;   // set only when this tab just created the room on the start screen
+-function takeNew(){try{const k=NEW_KEY(ROOM),v=sessionStorage.getItem(k);sessionStorage.removeItem(k);NEW=v?JSON.parse(v):null;}catch(e){NEW=null;}if(NEW&&!TYPES[NEW.type])NEW.type="meet";}
++function takeNew(){try{const k=NEW_KEY(ROOM),v=sessionStorage.getItem(k);sessionStorage.removeItem(k);NEW=v?JSON.parse(v):null;}catch(e){NEW=null;}if(NEW&&!own(TYPES,NEW.type))NEW.type="meet";if(NEW)NEW.name=str(NEW.name,40);}
+ function newRoomTrip(){const t=newTrip(NEW&&NEW.name||"");t.c=Date.now();if(NEW)NEW.tid=t.id;return t;}
+ // the type only shapes the first screen: 여행 → trip mode calendar. Every feature stays available afterwards.
+ function applyNewType(t){if(!NEW||NEW.tid!==t.id)return false;if(NEW.type==="trip")P(t).set={mode:"trip",n:2};P(t).cfg={type:NEW.type,...TYPE_MENUS[NEW.type]};NEW=null;return true;}
+--- a/sw.js (8단계)
++++ b/sw.js (9단계)
+@@ -11,7 +11,7 @@
+  *     (안 바꿔도 1)번 덕분에 다음 실행부터는 새 화면이에요.)
+  *  긴급 해제: 주소 뒤에 ?nosw 를 붙여 한 번 열면 이 서비스 워커가 해제돼요.
+  */
+-const VERSION = "2026-10-28-1";
++const VERSION = "2026-10-28-2";
+ const CACHE = "ploop-" + VERSION;
+ const PINNED = [
+   /^https:\/\/www\.gstatic\.com\/firebasejs\/\d+\.\d+\.\d+\//,
+@@ -38,7 +38,8 @@
+ self.addEventListener("fetch", e => {
+   const req = e.request;
+   if (req.method !== "GET") return;
+-  if (req.mode === "navigate") { e.respondWith(fetch(req).catch(offline)); return; }
++  // no-cache: ask the server every time (a cheap 304 when unchanged), so GitHub Pages' 10-minute browser cache never shows an old page
++  if (req.mode === "navigate") { e.respondWith(fetch(req.url, { cache: "no-cache", credentials: "same-origin" }).catch(offline)); return; }
+   if (PINNED.some(re => re.test(req.url))) {
+     e.respondWith(caches.open(CACHE).then(async c => {
+       const hit = await c.match(req);

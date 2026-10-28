@@ -1,0 +1,18 @@
+{
+  "id": "/PLOOP/",
+  "name": "Ploop",
+  "short_name": "Ploop",
+  "description": "Plan + Loop · 약속·여행 일정부터 정산까지 링크 하나로 함께",
+  "lang": "ko",
+  "start_url": "/PLOOP/",
+  "scope": "/PLOOP/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#5B5CF6",
+  "icons": [
+    { "src": "/PLOOP/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/PLOOP/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/PLOOP/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/PLOOP/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
