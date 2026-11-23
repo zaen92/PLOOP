@@ -84,6 +84,7 @@ function start(port = 8790) {
     if (u.pathname === "/" ) { res.writeHead(302, { Location: "/PLOOP/" }); return res.end(); }
     if (!u.pathname.startsWith("/PLOOP/")) { res.writeHead(404); return res.end("not found"); }
     let rel = decodeURIComponent(u.pathname.slice("/PLOOP/".length)) || "index.html";
+    if (rel.endsWith("/")) rel += "index.html";   // 폴더 주소(/privacy/)는 GitHub Pages처럼 index.html로
     let file = path.join(ROOT, rel);
     if (rel === "old.html" && process.env.OLD_HTML) file = process.env.OLD_HTML;
     if (rel === "fbmock.js") file = path.join(__dirname, "fbmock.js");
