@@ -796,6 +796,70 @@ body.landing-mode,body.gate-mode{background:#FBFAFF}
 .landing .l-preview{color:var(--b1)}
 .landing .l-field:focus-within{box-shadow:0 0 0 2px var(--b1) inset}
 .l-field.plain input{font-size:17px;font-weight:600}
+/* ===== 홈 · 내 모임 · 새 모임 · 모임 이동 ===== */
+.l-tchips{display:flex;gap:8px;flex-wrap:wrap}
+.l-tchip{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:8px 16px;border-radius:999px;background:var(--fill);font-size:15px;font-weight:700;color:var(--sub);border:1.5px solid transparent}
+.l-tchip[aria-checked="true"]{background:var(--b-soft);color:#6E51E2;border-color:var(--b1)}
+.l-field.area{align-items:stretch}
+.l-field textarea{flex:1;border:0;background:transparent;font:inherit;font-size:16px;font-weight:500;padding:14px 0;resize:none;line-height:1.5;min-width:0}
+.l-field textarea:focus{outline:none}
+.l-field textarea::placeholder{color:var(--faint);font-weight:500}
+.l-adv{margin-top:20px;border-top:1px solid var(--fill);padding-top:6px}
+.l-adv summary{cursor:pointer;font-size:15px;font-weight:700;color:var(--sub);list-style:none;display:flex;align-items:center;gap:8px;min-height:44px;flex-wrap:wrap}
+.l-adv summary::-webkit-details-marker{display:none}
+.l-adv summary::before{content:"›";display:inline-block;transition:transform .15s;color:var(--faint);font-size:20px;line-height:1}
+.l-adv[open] summary::before{transform:rotate(90deg)}
+.l-adv summary small{font-weight:500;color:var(--muted);font-size:13px}
+.mr-count{font-size:15px;color:var(--b1);font-weight:800;margin-left:2px}
+#myTitle:focus{outline:none}
+.mr-list{display:grid;gap:10px}
+.mr-card{position:relative;background:#fff;border:1px solid #EEEAFB;border-radius:18px;box-shadow:0 6px 24px -14px rgba(60,50,140,.18)}
+.mr-main{display:block;padding:16px 52px 14px 16px;color:inherit;text-decoration:none;border-radius:18px}
+.mr-main:hover{background:#FCFBFF}
+.mr-top{display:flex;align-items:center;gap:10px;min-width:0}
+.mr-ic{flex:none;width:36px;height:36px;border-radius:12px;display:grid;place-items:center;font-size:18px;background:var(--b-soft)}
+.mr-name{min-width:0;font-size:17px;font-weight:800;letter-spacing:-0.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mr-name.empty{color:var(--muted)}
+.mr-more{flex:none;font-size:12px;font-weight:700;color:var(--muted);background:var(--fill);border-radius:6px;padding:2px 6px}
+.mr-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.mr-chip{display:inline-flex;align-items:center;gap:4px;min-height:26px;padding:2px 10px;border-radius:999px;background:var(--fill);font-size:13px;font-weight:600;color:var(--sub)}
+.mr-chip.st-fixed{background:var(--green-soft);color:var(--green)}
+.mr-chip.st-vote{background:var(--b-soft);color:#6E51E2}
+.mr-chip.st-money{background:var(--blue-soft);color:var(--blue)}
+.mr-foot{display:flex;justify-content:space-between;gap:8px;margin-top:10px;font-size:13px;color:var(--muted)}
+.mr-foot .rid{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mr-foot .when{flex:none}
+.mr-x{position:absolute;top:10px;right:8px;width:40px;height:40px;border-radius:12px;color:var(--faint);display:grid;place-items:center;font-size:16px}
+.mr-x:hover{background:var(--fill);color:var(--sub)}
+.mr-note{margin:12px 4px 0;font-size:13px;color:var(--muted);line-height:1.55}
+.home-logo{flex:none;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;margin-bottom:8px}
+.home-logo img{width:32px;height:32px;border-radius:9px;display:block}
+.home-logo:active{transform:scale(.96)}
+.hero{position:relative}
+.trip-title{flex:1;min-width:0;display:flex;align-items:center;gap:4px;text-align:left;padding:4px 0 6px;font-size:24px;font-weight:800;color:var(--ink);letter-spacing:-0.02em}
+.tt-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tt-name.empty{color:var(--faint)}
+.tt-caret{flex:none;color:var(--muted);transition:transform .15s}
+.trip-title[aria-expanded="true"] .tt-caret{transform:rotate(180deg)}
+.trip-title[hidden],.trip-name[hidden]{display:none}
+.room-menu{position:absolute;left:4px;right:4px;z-index:15;margin-top:6px;background:var(--card);border-radius:18px;padding:8px;box-shadow:0 12px 32px -8px rgba(25,31,40,.22),0 0 0 1px var(--line);max-height:min(70vh,520px);overflow-y:auto}
+.room-menu[hidden]{display:none}
+.rm-l{font-size:12px;font-weight:700;color:var(--muted);padding:10px 10px 4px}
+.rm-row{display:flex;align-items:center;gap:10px;width:100%;min-height:52px;padding:8px 10px;border-radius:12px;text-align:left;color:var(--ink);text-decoration:none}
+.rm-row:hover,.rm-row:focus-visible{background:var(--fill)}
+.rm-row .ic{flex:none;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--fill);font-size:16px;font-weight:800}
+.rm-row .tx{flex:1;min-width:0}
+.rm-row strong{display:block;font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rm-row small{display:block;font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rm-row.cur .ic{background:var(--brand-soft);color:var(--brand)}
+.rm-row.cur::after{content:"✓";color:var(--brand);font-weight:800}
+.rm-row.add{color:var(--brand)}
+.rm-row.add .ic{background:var(--brand-soft)}
+.rm-sep{height:1px;background:var(--line);margin:6px 4px}
+.rm-empty{padding:6px 10px 10px;font-size:13px;color:var(--muted)}
+.hero-desc{margin:8px 0 0;font-size:15px;color:var(--sub);line-height:1.5;white-space:pre-wrap;word-break:keep-all}
+.hero-desc[hidden],body.booting .hero-desc{display:none!important}
+.set-desc{width:100%;min-height:64px;resize:vertical;font:inherit;line-height:1.45}
 @media (min-width:880px){
   .landing.home{max-width:920px;padding-top:28px}
   .landing.home .l-hero{text-align:center;padding:64px 0 8px}
@@ -822,14 +886,15 @@ body.landing-mode,body.gate-mode{background:#FBFAFF}
       <h1 id="homeTitle">함께하는 계획,<br><span class="l-grad">링크 하나로 끝!</span></h1>
       <p>약속부터 여행 일정, 비용 정산까지 친구들과 간편하게 관리하세요.</p>
       <div class="l-ctas">
-        <button type="button" class="l-cta" id="goCreate">새 모임 만들기</button>
+        <button type="button" class="l-cta" id="goCreate"><span aria-hidden="true">＋ </span>새 모임 만들기</button>
         <button type="button" class="l-cta2" id="goJoin">기존 모임 참여하기</button>
       </div>
       <p class="l-free">가입·설치 없이 무료로, 링크만 있으면 함께 써요</p>
     </div>
-    <section class="l-card" id="recentWrap" hidden>
-      <h2 class="l-label">최근 들어간 모임</h2>
-      <div id="recentList"></div>
+    <section id="recentWrap" hidden aria-labelledby="myTitle">
+      <div class="mr-head"><h2 class="l-h2" id="myTitle" tabindex="-1">내 모임 <span class="mr-count" id="myCount"></span></h2></div>
+      <div class="mr-list" id="recentList"></div>
+      <p class="mr-note">이 목록은 이 기기(브라우저)에만 저장돼요. 다른 기기와는 동기화되지 않아요. 모임 데이터는 서버에 있으니 링크로 다시 들어가면 돼요.</p>
     </section>
     <section class="l-sec" aria-labelledby="featTitle">
       <h2 class="l-h2" id="featTitle">Ploop으로 할 수 있는 일</h2>
@@ -850,40 +915,40 @@ body.landing-mode,body.gate-mode{background:#FBFAFF}
     <p class="l-note">링크를 아는 사람은 누구나 보고 고칠 수 있어요. 민감한 모임은 비밀번호를 걸어주세요.</p>
   </section>
 
-  <!-- 모임 유형 선택 -->
-  <section id="stepType" data-step="type" hidden aria-labelledby="typeTitle">
-    <div class="l-top"><button type="button" class="l-back" data-goto="home">‹ 처음으로</button></div>
-    <h1 class="l-title" id="typeTitle" tabindex="-1">어떤 모임인가요?</h1>
-    <p class="l-desc">고른 유형에 맞춰 첫 화면이 준비돼요. 만든 뒤에도 다른 기능을 언제든 함께 쓸 수 있어요.</p>
-    <div class="l-types">
-      <button type="button" class="l-type" data-type="meet"><span class="l-ic" aria-hidden="true">📅</span><span><strong>약속 잡기</strong><small>날짜와 장소를 함께 결정하는 모임</small></span><span class="chev" aria-hidden="true">›</span></button>
-      <button type="button" class="l-type" data-type="trip"><span class="l-ic" aria-hidden="true">🧳</span><span><strong>여행 계획</strong><small>날짜별 일정과 장소, 비용을 관리하는 모임</small></span><span class="chev" aria-hidden="true">›</span></button>
-      <button type="button" class="l-type" data-type="money"><span class="l-ic" aria-hidden="true">🧾</span><span><strong>비용 정산</strong><small>공동 지출과 송금 내역을 정리하는 모임</small></span><span class="chev" aria-hidden="true">›</span></button>
-    </div>
-  </section>
-
-  <!-- 모임 만들기 -->
+  <!-- 새 모임 만들기: 이름(필수) · 유형(선택) · 설명(선택) · 고급 설정(주소·비밀번호) -->
   <section id="stepCreate" data-step="create" hidden aria-labelledby="createTitle">
-    <div class="l-top"><button type="button" class="l-back" data-goto="type">‹ 유형 다시 고르기</button></div>
-    <p class="l-chip" id="typeChip"></p>
-    <h1 class="l-title" id="createTitle" tabindex="-1">모임 정보를 적어주세요</h1>
-    <p class="l-desc">링크 주소는 자동으로 만들어 뒀어요. 원하면 바꿔도 돼요.</p>
-    <form class="l-card" id="landingForm">
-      <label class="l-label" for="meetName">모임 이름 <span class="opt">선택</span></label>
-      <div class="l-field plain"><input id="meetName" maxlength="40" autocomplete="off" placeholder="예: 속초 2박 3일"></div>
-      <label class="l-label" for="roomInput" style="margin-top:20px">모임 링크 주소</label>
-      <div class="l-field">
-        <span class="l-prefix" id="roomPrefix"></span>
-        <input id="roomInput" type="text" inputmode="url" lang="en" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="40" placeholder="sokcho-2026">
+    <div class="l-top"><button type="button" class="l-back" data-goto="home">‹ 처음으로</button></div>
+    <h1 class="l-title" id="createTitle" tabindex="-1">새 모임 만들기</h1>
+    <p class="l-desc">이름만 적으면 바로 만들어져요. 링크 주소는 자동으로 만들어 드려요.</p>
+    <form class="l-card" id="landingForm" novalidate>
+      <label class="l-label" for="meetName">모임 이름</label>
+      <div class="l-field plain"><input id="meetName" maxlength="40" autocomplete="off" placeholder="예: 강릉 1박 2일" required aria-required="true"></div>
+      <div class="l-meta"><span id="nameMsg" class="l-msg" role="alert"></span><span id="nameCount">0 / 40</span></div>
+      <div class="l-label" id="typeL" style="margin-top:20px">유형 <span class="opt">선택</span></div>
+      <div class="l-tchips" role="radiogroup" aria-labelledby="typeL" id="typeChips">
+        <button type="button" class="l-tchip" role="radio" aria-checked="false" data-type="meet"><span aria-hidden="true">📅</span>약속</button>
+        <button type="button" class="l-tchip" role="radio" aria-checked="false" data-type="trip"><span aria-hidden="true">🧳</span>여행</button>
+        <button type="button" class="l-tchip" role="radio" aria-checked="false" data-type="money"><span aria-hidden="true">🧾</span>정산</button>
       </div>
-      <div class="l-meta"><span id="roomMsg" class="l-msg"></span><span id="roomCount">0 / 30</span></div>
-      <p class="l-rule">영어 소문자, 숫자, - 만 쓸 수 있어요. 남이 짐작하기 어려운 주소가 안전해요.</p>
-      <p class="l-preview" id="roomPreview"></p>
-      <label class="l-label" for="pinInput" style="margin-top:20px">비밀번호 <span class="opt">선택</span></label>
-      <div class="l-field"><span class="l-prefix" aria-hidden="true">🔒</span><input id="pinInput" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="12" placeholder="4자 이상"></div>
-      <p class="l-rule" id="pinRule">비밀번호를 걸면 주소만 알아서는 들어올 수 없어요. 공유 링크에는 비밀번호가 함께 들어가서 친구는 입력할 필요가 없어요.</p>
+      <p class="l-rule" id="typeRule">고르지 않으면 모든 메뉴(투표·일정·정산)가 켜져요. 만든 뒤에도 바꿀 수 있어요.</p>
+      <label class="l-label" for="meetDesc" style="margin-top:20px">설명 <span class="opt">선택</span></label>
+      <div class="l-field plain area"><textarea id="meetDesc" maxlength="100" rows="2" placeholder="예: 12월 첫째 주 주말, 바다 보러 가요"></textarea></div>
+      <details class="l-adv" id="advBox">
+        <summary>고급 설정 <small>링크 주소 직접 정하기 · 비밀번호</small></summary>
+        <label class="l-label" for="roomInput" style="margin-top:14px">모임 링크 주소</label>
+        <div class="l-field">
+          <span class="l-prefix" id="roomPrefix"></span>
+          <input id="roomInput" type="text" inputmode="url" lang="en" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="40" placeholder="sokcho-2026">
+        </div>
+        <div class="l-meta"><span id="roomMsg" class="l-msg"></span><span id="roomCount">0 / 30</span></div>
+        <p class="l-rule">영어 소문자, 숫자, - 만 쓸 수 있어요. 남이 짐작하기 어려운 주소가 안전해요.</p>
+        <p class="l-preview" id="roomPreview"></p>
+        <button type="button" class="btn grey sm" id="roomRandom" style="margin-top:10px">새 주소 만들기</button>
+        <label class="l-label" for="pinInput" style="margin-top:20px">비밀번호 <span class="opt">선택</span></label>
+        <div class="l-field"><span class="l-prefix" aria-hidden="true">🔒</span><input id="pinInput" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="12" placeholder="4자 이상"></div>
+        <p class="l-rule" id="pinRule">비밀번호를 걸면 주소만 알아서는 들어올 수 없어요. 공유 링크에는 비밀번호가 함께 들어가서 친구는 입력할 필요가 없어요.</p>
+      </details>
       <div class="l-actions">
-        <button type="button" class="btn grey" id="roomRandom">새 주소</button>
         <button type="submit" class="btn solid l-go" id="roomGo" disabled>모임 만들기</button>
       </div>
     </form>
@@ -921,6 +986,7 @@ body.landing-mode,body.gate-mode{background:#FBFAFF}
 
 <div class="wrap" id="app">
   <div class="topbar">
+    <a class="home-logo" id="goHome" href="./" aria-label="Ploop 홈으로" title="홈"><img src="icon-192.png" alt="" width="32" height="32"></a>
     <div class="trips-box" id="tabsBox"><nav class="trips" id="tabs" aria-label="모임 목록"></nav></div>
     <button class="tabs-all" id="tabsAll" aria-label="모임 전체 보기" title="모임 전체 보기" hidden><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><b id="tabsCount"></b></button>
     <button class="tabs-add" id="addTrip" aria-label="같은 링크에 새 모임 추가" title="새 모임">＋</button>
@@ -930,9 +996,12 @@ body.landing-mode,body.gate-mode{background:#FBFAFF}
   <header class="hero">
     <label class="title-label" for="tripName">모임 이름</label>
     <div class="title-row">
-      <input class="trip-name" id="tripName" placeholder="예: 속초 2박 3일" maxlength="40" autocomplete="off">
+      <button type="button" class="trip-title" id="tripTitleBtn" aria-haspopup="true" aria-expanded="false" aria-controls="roomMenu"><span class="tt-name" id="tripTitleText"></span><svg class="tt-caret" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+      <input class="trip-name" id="tripName" placeholder="예: 속초 2박 3일" maxlength="40" autocomplete="off" hidden>
       <button class="pen" id="editTitle" aria-label="모임 이름 수정"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>
     </div>
+    <div class="room-menu" id="roomMenu" role="menu" aria-label="모임 이동" hidden></div>
+    <p class="hero-desc" id="tripDesc" hidden></p>
     <div class="head-meta" id="headMeta"></div>
     <div class="hero-total num" id="heroTotal">0원</div>
     <div class="hero-sub" id="heroSub"></div>
@@ -1111,6 +1180,8 @@ body.landing-mode,body.gate-mode{background:#FBFAFF}
   <div class="psheet-box set-box" role="dialog" aria-modal="true" aria-labelledby="setTitle">
     <div class="psheet-h"><strong id="setTitle">모임 설정</strong><button type="button" class="more" data-setclose aria-label="닫기">✕</button></div>
     <div class="set-scroll">
+      <div class="set-l"><label for="setDesc">모임 설명</label></div>
+      <textarea class="field set-desc" id="setDesc" maxlength="100" rows="2" placeholder="예: 12월 첫째 주 주말, 바다 보러 가요"></textarea>
       <div class="set-l" id="setTypeL">모임 유형</div>
       <div class="set-types" role="radiogroup" aria-labelledby="setTypeL" id="setTypes"></div>
       <p class="hint set-note">유형은 메뉴 기본값과 홈 카드 순서만 바꿔요. 입력한 데이터는 그대로예요.</p>
@@ -1428,6 +1499,7 @@ function render(){
   updLoad();
   renderTabs();
   $("#tripName").value=cur().name||"";
+  renderTitle();
   renderPeople();renderSheet();renderTxForm();recalc();renderPlan();
   if(typeof applyRO==="function")applyRO();
   if(typeof rememberRoom==="function")rememberRoom();
@@ -1462,7 +1534,7 @@ const nTrip=t=>{const seen=new Set();return {name:str(t.name,40),people:(Array.i
 const nShares=sh=>{const o={};if(sh&&typeof sh==="object")for(const k in sh){const v=sh[k];if(sid(k)&&(v==="x"||(typeof v==="number"&&Number.isFinite(v))))o[k]=v;}return o;};
 const nItem=i=>{const o={name:str(i.name,40),amount:num(i.amount),payer:sid(i.payer),shares:nShares(i.shares),memo:str(i.memo,80),c:num(i.c)};if(sid(i.ref))o.ref=i.ref;return o;};   // ref: the schedule stop this expense belongs to
 const nTx=x=>({from:sid(x.from),to:sid(x.to),amount:num(x.amount),memo:str(x.memo,80),g:sid(x.g),c:num(x.c)});
-const emptyPlan=()=>({avail:{},tavail:{},no:{},maybe:{},tno:{},tmaybe:{},opts:[],votes:{},fix:null,pfix:"",host:"",set:{mode:"day",n:2},cfg:null,extra:{}});
+const emptyPlan=()=>({avail:{},tavail:{},no:{},maybe:{},tno:{},tmaybe:{},opts:[],votes:{},fix:null,pfix:"",host:"",set:{mode:"day",n:2},cfg:null,desc:"",extra:{}});
 // 모임 유형 & 메뉴. cfg is null for meetings made before 4단계: every menu stays on, as before.
 const TYPES={meet:{ic:"📅",name:"약속 잡기",desc:"날짜와 장소를 함께 결정하는 모임"},trip:{ic:"🧳",name:"여행 계획",desc:"날짜별 일정과 장소, 비용을 관리하는 모임"},money:{ic:"🧾",name:"비용 정산",desc:"공동 지출과 송금 내역을 정리하는 모임"}};
 const MENU_KEYS=["vote","sched","money"];
@@ -1493,6 +1565,7 @@ function planDocs(t){
   if(p.set&&(p.set.mode!=="day"||p.set.n!==2))m.set("s_main",{mode:p.set.mode,n:p.set.n});
   if(p.host)m.set("h_main",{p:p.host});
   if(p.pfix)m.set("q_main",{p:p.pfix});
+  if(p.desc)m.set("d_main",{t:p.desc});   // 모임 설명 (이전 버전 앱은 모르는 접두사를 extra로 보존하므로 지워지지 않아요)
   if(p.cfg&&own(TYPES,p.cfg.type))m.set("g_main",{type:p.cfg.type,vote:p.cfg.vote?1:0,sched:p.cfg.sched?1:0,money:p.cfg.money?1:0});
   for(const id in (p.extra||{}))if(!m.has(id))m.set(id,p.extra[id]);
   return m;
@@ -1512,6 +1585,7 @@ function planFrom(m){
     else if(k==="x_"||k==="y_"){p[k==="x_"?"no":"tno"][x]=dates(b.n);p[k==="x_"?"maybe":"tmaybe"][x]=dates(b.m);}
     else if(k==="h_"){p.host=sid(b.p);}
     else if(k==="q_"){p.pfix=sid(b.p);}
+    else if(k==="d_"&&x==="main"){p.desc=str(b.t,100);}
     else if(k==="g_"){if(own(TYPES,b.type))p.cfg={type:b.type,vote:b.vote?1:0,sched:b.sched?1:0,money:b.money?1:0};}
     else p.extra[id]=b;}   // written by a newer version: keep it as is so this one never deletes it
   p.opts.sort((a,b)=>a.c-b.c);return p;
@@ -1805,8 +1879,8 @@ function applyRO(){
   if(!readOnly)return;
   document.querySelectorAll("#app input,#app select,#app button,.bottom button").forEach(el=>{
     if(el.closest("#tabs")&&!el.id)return;
-    if(el.closest("[data-go]"))return;
-    if(["copyBtn","imgBtn","xlsBtn","shareLink","openSettings"].includes(el.id))return;
+    if(el.closest("[data-go]")||el.closest("#roomMenu"))return;
+    if(["copyBtn","tripTitleBtn","imgBtn","xlsBtn","shareLink","openSettings"].includes(el.id))return;
     if(!el.disabled){el.disabled=true;el.dataset.ro="1";}   // remembered so it can be turned back on
   });
 }
@@ -1885,15 +1959,34 @@ const ROOM_RE=/^[a-z0-9-]{2,30}$/;
 const ROOM=(()=>{const q=(new URLSearchParams(location.search).get("s")||"").toLowerCase();return ROOM_RE.test(q)?q:null;})();
 const RECENT="settle-rooms";
 function recentRooms(){try{return JSON.parse(localStorage.getItem(RECENT)||"[]").filter(r=>r&&ROOM_RE.test(r.id));}catch(e){return [];}}
+const RECENT_MAX=50;
+// 홈의 '내 모임' 카드에 쓰는 요약. 계좌·송금 정보는 넣지 않아요.
+function roomSummary(){
+  const t=cur();if(!t)return null;
+  const pl=P(t),n=t.people.length;
+  let st="prep";
+  if(n){if(pl.fix)st="fixed";else if(t.people.some(p=>responded(t,p.id)))st="vote";else if(t.items.length||t.transfers.length)st="money";}
+  let d="";
+  if(pl.fix){const e=pl.fix.e||pl.fix.date,days=Math.round((new Date(e.replace(/-/g,"/"))-new Date(pl.fix.date.replace(/-/g,"/")))/864e5);d=fixRange(pl)+(days>0?` · ${nightsLabel(days)}`:"");}
+  return {nm:str(t.name,40),n,d,st,ty:typeOf(t),tc:state.trips.length};
+}
+// 서버 답(또는 마지막으로 본 일정)이 있을 때만 요약을 바꿔요. 불러오는 중의 빈 상태가 좋은 요약을 덮어쓰지 않게.
+const summaryOk=()=>!!state&&(!expectShared()||LOCAL||CACHED||(shared&&READY&&tripLoaded()));
 function rememberRoom(){
   if(!ROOM)return;
   try{
-    const list=recentRooms().filter(r=>r.id!==ROOM);
-    const names=state.trips.map(t=>t.name).filter(Boolean).slice(0,3).join(", ");
-    list.unshift({id:ROOM,names,at:Date.now()});
-    localStorage.setItem(RECENT,JSON.stringify(list.slice(0,8)));
-  }catch(e){}
+    const all=recentRooms(),old=all.find(r=>r.id===ROOM)||{};
+    const list=all.filter(r=>r.id!==ROOM);
+    const e={...old,id:ROOM,at:Date.now()};
+    if(summaryOk()){
+      e.names=state.trips.map(t=>t.name).filter(Boolean).slice(0,3).join(", ");
+      const sm=roomSummary();if(sm)Object.assign(e,sm);
+    }else if(typeof e.names!=="string")e.names="";
+    list.unshift(e);
+    localStorage.setItem(RECENT,JSON.stringify(list.slice(0,RECENT_MAX)));
+  }catch(err){}
 }
+function forgetRoom(id){try{localStorage.setItem(RECENT,JSON.stringify(recentRooms().filter(r=>r.id!==id)));}catch(e){}}
 /* ---------- room key & password ---------- */
 // With a password the data lives at rooms/<id>--<hash(id+password)>, so knowing the ID alone leads nowhere.
 let PIN=null,KEY=null;
@@ -2093,7 +2186,7 @@ const changedAll=()=>{render();save();};
 function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove("show"),Math.min(5000,Math.max(2000,String(msg).length*80)));}
 const itemOf=el=>{const c=el.closest(".item[data-iid]");return c?cur().items.find(i=>i.id===c.dataset.iid):null;};
 
-$("#tripName").addEventListener("input",e=>{cur().name=e.target.value;renderTabs();save();});
+$("#tripName").addEventListener("input",e=>{cur().name=e.target.value;renderTabs();renderTitle();save();});
 $("#tabs").addEventListener("click",e=>{
   const x=e.target.closest("[data-deltrip]");if(x){deleteTrip(x.dataset.deltrip);return;}
   const b=e.target.closest("[data-trip]");
@@ -2103,7 +2196,7 @@ $("#addTrip").addEventListener("click",()=>{{
     const prev=cur();const t=newTrip("");t.c=Date.now();
     t.people=prev.people.map(nPerson); // same ids: "me" carries over (ids are only used inside each trip)
     state.trips.push(t);save();switchTrip(t.id);if(shared){loaded.items=loaded.transfers=loaded.plan=true;updLoad();}
-    setTimeout(()=>{$("#tripName").focus();$("#tripName").select();},0);
+    setTimeout(()=>editName(true),0);
   }
 });
 $("#tabs").addEventListener("scroll",tabFade,{passive:true});
@@ -2123,7 +2216,7 @@ window.addEventListener("offline",()=>{online=false;setStatus();updLoad();if(sha
 // leaving (or switching apps on a phone) with changes not yet on the server
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"&&syncTimer){clearTimeout(syncTimer);pushChanges();}});
 window.addEventListener("beforeunload",e=>{
-  if(!shared)return;
+  if(!shared||leaving)return;
   if(syncTimer){clearTimeout(syncTimer);pushChanges();}
   if(inflight>0||txWait.size||failed.size){e.preventDefault();e.returnValue="";}
 });
@@ -3131,7 +3224,8 @@ $("#planCopy").addEventListener("click",async()=>{
 const HASH_VIEW=new URLSearchParams(location.hash.slice(1)).get("v");
 document.body.dataset.view=view;
 $("#saveBtn").addEventListener("click",saveNow);
-$("#editTitle").addEventListener("click",()=>{const i=$("#tripName");i.focus();i.select();});
+$("#editTitle").addEventListener("click",()=>{if(!readOnly)editName(true);});
+$("#tripName").addEventListener("blur",()=>editName(false));
 $("#tripName").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();e.target.blur();}});
 async function copyShare(){
   const url=shareUrl();
@@ -3164,6 +3258,7 @@ function renderHead(){
     date=`<span class="hm fixd">✓ ${esc(fixRange(pl))}${days>0?` · ${nightsLabel(days)}`:""}</span>`;}
   else date=`<span class="hm">📅 ${trip?"여행 기간":"날짜"} 미정</span>`;
   const ty=TYPES[typeOf(t)];
+  const ds=$("#tripDesc"),dv=pl.desc||"";if(ds.textContent!==dv)ds.textContent=dv;ds.hidden=!dv.trim();
   $("#headMeta").innerHTML=`<button type="button" class="hm" data-go="more" data-anchor="people" aria-label="참여 ${n}명, 멤버 보기">👥 ${n}명</button>${date}<span class="hm type">${ty.ic} ${ty.name}</span>`;
 }
 // dashboard: real numbers only; unfinished things first
@@ -3252,6 +3347,7 @@ function renderSettings(){
   $("#setTypes").innerHTML=Object.entries(TYPES).map(([k,v])=>`<button type="button" class="set-type" role="radio" data-settype="${k}" aria-checked="${k===ty}" ${ro?"disabled":""}><span aria-hidden="true">${v.ic}</span><span><strong>${v.name}</strong><small>${v.desc}</small></span></button>`).join("");
   $("#setMenus").innerHTML=`<div class="set-menu"><div class="tx"><strong>홈 · 더보기</strong><small>항상 보여요</small></div></div>`+MENU_KEYS.map(k=>{const lock=hasData(t,k);
     return `<div class="set-menu"><div class="tx"><strong id="sm-${k}">${MENU_INFO[k].name}</strong><small>${lock?"기록이 있어서 항상 보여요":MENU_INFO[k].desc}</small></div><button type="button" class="sw" role="switch" aria-labelledby="sm-${k}" data-setmenu="${k}" aria-checked="${m[k]}" ${ro||lock?"disabled":""}></button></div>`;}).join("");
+  const sd=$("#setDesc");if(document.activeElement!==sd)sd.value=P(t).desc||"";sd.disabled=ro;
   $("#setRoom").textContent=(PIN?"🔒 ":"")+"#"+ROOM;
   const h=hostOf(t),mayHost=!ro&&canFix(t);
   $("#setHost").innerHTML=`<option value="">정하지 않음 (누구나 확정)</option>`+t.people.map(p=>`<option value="${p.id}" ${p.id===h?"selected":""}>${esc(p.name||"이름 없음")}</option>`).join("");
@@ -3261,6 +3357,8 @@ function renderSettings(){
 }
 function openSettings(){renderSettings();$("#setSheet").hidden=false;setTimeout(()=>{const b=$("#setTypes [aria-checked=true]");if(b)b.focus();},30);}
 $("#openSettings").addEventListener("click",openSettings);
+$("#setDesc").addEventListener("input",e=>{if(readOnly)return;P(cur()).desc=e.target.value.slice(0,100);renderHead();save();});
+$("#setDesc").addEventListener("change",e=>{if(readOnly)return;const v=e.target.value.trim().slice(0,100);if(v!==e.target.value)e.target.value=v;P(cur()).desc=v;renderHead();save();});
 $("#setHost").addEventListener("change",e=>{const t=cur();if(readOnly||!canFix(t)){renderSettings();return;}
   P(t).host=e.target.value;planChanged();renderSettings();toast(e.target.value?`${pname(t,e.target.value)}님을 관리자로 정했어요`:"관리자를 비웠어요");});
 $("#setSheet").addEventListener("click",e=>{
@@ -3327,6 +3425,61 @@ if("serviceWorker" in navigator&&window.isSecureContext){
   }
 }
 $("#updReload").addEventListener("click",()=>location.reload());
+/* ---------- 모임 이름 · 모임 이동 메뉴 · 홈으로 ---------- */
+function renderTitle(){
+  const t=cur(),el=$("#tripTitleText");if(!t||!el)return;
+  el.textContent=t.name||"이름 없는 모임";el.classList.toggle("empty",!t.name);
+  $("#tripTitleBtn").setAttribute("aria-label",`${t.name||"이름 없는 모임"}, 모임 이동 메뉴 열기`);
+}
+// 이름은 ✎ 버튼으로만 고쳐요. 이름(▾)을 누르면 모임 이동 메뉴가 열려요.
+function editName(on){
+  const b=$("#tripTitleBtn"),i=$("#tripName");if(on===!i.hidden)return;
+  b.hidden=on;i.hidden=!on;
+  if(on){closeRoomMenu();i.focus();i.select();}else renderTitle();
+}
+const STATUS={prep:"준비 중",vote:"날짜 투표 중",fixed:"일정 확정",money:"정산 중"};
+const roomIc=r=>own(TYPES,r.ty)?TYPES[r.ty].ic:"🗂️";
+const roomName=r=>(typeof r.nm==="string"&&r.nm)||(typeof r.names==="string"&&r.names.split(", ")[0])||"";
+function renderRoomMenu(){
+  const t=cur(),others=recentRooms().filter(r=>r.id!==ROOM).sort((a,b)=>(b.at||0)-(a.at||0));
+  const row=(attrs,cls,ic,title,sub)=>`<button type="button" class="rm-row ${cls}" role="menuitem" ${attrs}><span class="ic" aria-hidden="true">${ic}</span><span class="tx"><strong>${title}</strong>${sub?`<small>${sub}</small>`:""}</span></button>`;
+  let h=`<div class="rm-l">현재 모임</div>`+row(`data-rm="close" aria-current="true"`,"cur",TYPES[typeOf(t)].ic,esc(tripLabel(t)),`${PIN?"🔒 ":""}#${esc(ROOM)}${state.trips.length>1?` · 이 링크 안 모임 ${state.trips.length}개`:""}`);
+  h+=`<div class="rm-l">다른 모임</div>`;
+  h+=others.length?others.slice(0,5).map(r=>{const nm=roomName(r);return row(`data-room="${esc(r.id)}"`,"",roomIc(r),nm?esc(nm):"이름 없는 모임",`${getSavedPin(r.id)?"🔒 ":""}#${esc(r.id)}${typeof r.n==="number"?` · ${r.n}명`:""}`);}).join(""):`<p class="rm-empty">이 기기에서 들어간 다른 모임이 아직 없어요.</p>`;
+  h+=`<div class="rm-sep" role="separator"></div>`;
+  h+=row(`data-rm="new"`,"add","＋","새 모임 만들기","");
+  h+=row(`data-rm="all"`,"","🗂️","전체 모임 보기",`이 기기의 모임 ${others.length+1}개`);
+  $("#roomMenu").innerHTML=h;
+}
+function openRoomMenu(){renderRoomMenu();$("#roomMenu").hidden=false;$("#tripTitleBtn").setAttribute("aria-expanded","true");setTimeout(()=>{const f=$("#roomMenu [data-room],#roomMenu [data-rm='new']");if(f&&!COARSE)f.focus({preventScroll:true});},0);}
+function closeRoomMenu(back){const m=$("#roomMenu");if(m.hidden)return;m.hidden=true;$("#tripTitleBtn").setAttribute("aria-expanded","false");if(back)$("#tripTitleBtn").focus();}
+$("#tripTitleBtn").addEventListener("click",()=>{if($("#roomMenu").hidden)openRoomMenu();else closeRoomMenu();});
+$("#roomMenu").addEventListener("click",e=>{
+  const r=e.target.closest("[data-room]");if(r){closeRoomMenu();leaveTo(roomUrl(r.dataset.room));return;}
+  const b=e.target.closest("[data-rm]");if(!b)return;const k=b.dataset.rm;
+  if(k==="close"){closeRoomMenu(true);return;}
+  closeRoomMenu();leaveTo(baseUrl()+(k==="new"?"#create":"#list"));
+});
+document.addEventListener("click",e=>{if(!$("#roomMenu").hidden&&!e.target.closest("#roomMenu,#tripTitleBtn"))closeRoomMenu();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#roomMenu").hidden)closeRoomMenu(true);});
+// 다른 모임·홈으로 갈 때: 아직 서버에 안 간 변경을 먼저 보내고(최대 4초 기다림) 이동해요. 이 모임 데이터는 그대로예요.
+let leaving=false;
+async function leaveTo(url){
+  if(leaving)return;
+  if(shared&&!readOnly){
+    if(syncTimer){clearTimeout(syncTimer);syncTimer=null;pushChanges();}
+    if(inflight>0)toast("저장 중이에요. 잠시만요…");
+    const until=Date.now()+4000;
+    while((inflight>0||syncTimer)&&Date.now()<until)await new Promise(r=>setTimeout(r,100));
+    if((inflight>0||txWait.size||failed.size)&&!confirm("아직 친구에게 전달되지 않은 변경이 있어요. 지금 이동하면 이 변경이 사라질 수 있어요. 그래도 이동할까요?"))return;
+  }else if(!shared)saveLocal();
+  leaving=true;location.assign(url);
+}
+// 왼쪽 위 로고, #모임주소 태그, 더보기 > 다른 모임 열기 → 홈
+document.addEventListener("click",e=>{
+  const a=e.target.closest('#app a[href="./"]');if(!a||e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey)return;
+  e.preventDefault();leaveTo(baseUrl());
+});
 /* ---------- start screen ---------- */
 function slugify(v){return v.toLowerCase().replace(/\s+/g,"-").replace(/[^a-z0-9-]/g,"").replace(/-{2,}/g,"-").slice(0,30);}
 function randomRoom(){
@@ -3337,82 +3490,125 @@ function randomRoom(){
 const baseUrl=()=>location.origin+location.pathname;
 const roomUrl=id=>baseUrl()+"?s="+encodeURIComponent(id);
 const NEW_KEY=id=>"ploop-new:"+id;   // {type,name} handed from the create screen to the brand-new room
-let landingType=null,navDepth=0;   // navDepth: steps pushed in this visit, so 뒤로 never leaves the site
+let landingType=null,navDepth=0,addrTouched=false;   // navDepth: steps pushed in this visit, so 뒤로 never leaves the site
 function showStep(step,push){
-  if(!["home","type","create","join"].includes(step))step="home";
-  if(step==="create"&&!landingType)step="type";
+  if(step==="type")step="create";   // 예전 주소(#type)는 만들기 화면으로
+  const list=step==="list";if(list)step="home";
+  if(!["home","create","join"].includes(step))step="home";
   document.querySelectorAll("#landing [data-step]").forEach(el=>{el.hidden=el.dataset.step!==step;});
   $("#landing").classList.toggle("home",step==="home");
   if(push){history.pushState({step},"",step==="home"?baseUrl():"#"+step);navDepth++;}
-  scrollTo(0,0);
+  if(step==="home")renderMyRooms();
+  if(list){requestAnimationFrame(()=>{const w=$("#recentWrap");if(!w.hidden){w.scrollIntoView({block:"start"});$("#myTitle").focus({preventScroll:true});}else scrollTo(0,0);});}
+  else scrollTo(0,0);
   const h=$("#landing [data-step='"+step+"'] .l-title");if(h&&push)h.focus({preventScroll:true});
   if(step==="create"){
-    const t=TYPES[landingType];$("#typeChip").textContent=t.ic+" "+t.name;
-    if(!$("#roomInput").value){$("#roomInput").value=randomRoom();$("#roomInput").dispatchEvent(new Event("input"));}
+    if(!$("#roomInput").value){$("#roomInput").value=randomRoom();addrTouched=false;$("#roomInput").dispatchEvent(new Event("input"));}
+    setTimeout(()=>$("#meetName").focus(),60);
   }
+}
+// 마지막 접속: 오늘 / 어제 / N일 전 / 월.일
+function agoLabel(ts){
+  if(!ts)return "";const d=new Date(ts),now=new Date(),day=x=>new Date(x.getFullYear(),x.getMonth(),x.getDate());
+  const diff=Math.round((day(now)-day(d))/864e5);
+  if(diff<=0)return "오늘";if(diff===1)return "어제";if(diff<7)return `${diff}일 전`;
+  return (d.getFullYear()!==now.getFullYear()?d.getFullYear()+". ":"")+`${d.getMonth()+1}. ${d.getDate()}.`;
+}
+// 내 모임: 이 기기에서 들어간 모임(링크) 카드. 카드 1장 = 링크 1개
+function renderMyRooms(){
+  const rec=recentRooms().sort((a,b)=>(b.at||0)-(a.at||0));
+  $("#recentWrap").hidden=!rec.length;$("#myCount").textContent=rec.length?rec.length:"";
+  $("#recentList").innerHTML=rec.map(r=>{
+    const nm=roomName(r),has=typeof r.n==="number",st=own(STATUS,r.st)?r.st:"";
+    const more=typeof r.tc==="number"&&r.tc>1?`<span class="mr-more">외 ${r.tc-1}개</span>`:"";
+    const chips=has?[`<span class="mr-chip">👥 ${r.n}명</span>`,`<span class="mr-chip">📅 ${typeof r.d==="string"&&r.d?esc(r.d):"날짜 미정"}</span>`,st?`<span class="mr-chip st-${st}">${STATUS[st]}</span>`:""].join(""):`<span class="mr-chip">들어가면 인원·날짜가 표시돼요</span>`;
+    const label=nm||"이름 없는 모임";
+    return `<div class="mr-card"><a class="mr-main" href="${esc(roomUrl(r.id))}"><div class="mr-top"><span class="mr-ic" aria-hidden="true">${roomIc(r)}</span><strong class="mr-name${nm?"":" empty"}">${esc(label)}</strong>${more}</div><div class="mr-meta">${chips}</div><div class="mr-foot"><span class="rid">${getSavedPin(r.id)?"🔒 ":""}#${esc(r.id)}</span><span class="when">마지막 접속 · ${agoLabel(r.at)}</span></div></a><button type="button" class="mr-x" data-forget="${esc(r.id)}" aria-label="${esc(label)} 목록에서 빼기" title="목록에서 빼기">✕</button></div>`;
+  }).join("");
 }
 function startLanding(){
   document.body.classList.add("landing-mode");
   $("#landing").hidden=false;
-  const inp=$("#roomInput"),msg=$("#roomMsg"),prev=$("#roomPreview");
+  const inp=$("#roomInput"),msg=$("#roomMsg"),prev=$("#roomPreview"),nameInp=$("#meetName"),adv=$("#advBox");
   $("#roomPrefix").textContent="#";
+  const canGo=()=>{$("#roomGo").disabled=!nameInp.value.trim()||!ROOM_RE.test(slugify(inp.value));};
   const update=()=>{
     const v=slugify(inp.value);
     $("#roomCount").textContent=`${v.length} / 30`;
     prev.textContent=v?roomUrl(v):"";
     const ok=ROOM_RE.test(v);
-    $("#roomGo").disabled=!ok;
     const raw=inp.value.trim();
     if(/[ㄱ-ㅎㅏ-ㅣ가-힣]/.test(raw))msg.textContent="주소는 영어 소문자·숫자·- 로 적어주세요 (한글은 안 돼요)";
     else if(v&&raw!==v)msg.textContent=`‘${v}’로 만들어져요`;
     else msg.textContent=v&&!ok?"2자 이상 입력해주세요":"";
     msg.style.color=raw&&raw!==v&&!/[ㄱ-ㅎㅏ-ㅣ가-힣]/.test(raw)?"var(--blue)":"";
+    canGo();
   };
   const clean=()=>{const raw=inp.value,s=slugify(raw);if(s!==raw)inp.value=s;update();
     if(/[ㄱ-ㅎㅏ-ㅣ가-힣]/.test(raw))msg.textContent="주소는 영어 소문자·숫자·- 로 적어주세요 (한글은 안 돼요)";};
   // the keyboard owns the text while typing; we only read it
-  inp.addEventListener("input",update);
+  inp.addEventListener("input",e=>{if(e.isTrusted)addrTouched=true;update();});
   inp.addEventListener("blur",clean);
-  $("#roomRandom").addEventListener("click",()=>{inp.value=randomRoom();update();inp.focus();});
+  $("#roomRandom").addEventListener("click",()=>{inp.value=randomRoom();addrTouched=false;update();inp.focus();});
+  nameInp.addEventListener("input",()=>{$("#nameCount").textContent=`${nameInp.value.length} / 40`;if(nameInp.value.trim())$("#nameMsg").textContent="";canGo();});
+  // 유형: 하나 고르거나, 다시 눌러 해제(고르지 않으면 모든 메뉴가 켜져요)
+  $("#typeChips").addEventListener("click",e=>{const b=e.target.closest("[data-type]");if(!b)return;
+    landingType=landingType===b.dataset.type?null:b.dataset.type;
+    document.querySelectorAll("#typeChips [data-type]").forEach(x=>x.setAttribute("aria-checked",String(x.dataset.type===landingType)));
+    $("#typeRule").textContent=landingType?`${TYPES[landingType].ic} ${TYPES[landingType].desc}. 만든 뒤에도 바꿀 수 있어요.`:"고르지 않으면 모든 메뉴(투표·일정·정산)가 켜져요. 만든 뒤에도 바꿀 수 있어요.";});
 
-  // steps: 메인 → 유형 → 만들기 / 메인 → 참여. The phone's back button walks back through them.
-  $("#goCreate").addEventListener("click",()=>showStep("type",true));
+  // steps: 메인 → 만들기 / 메인 → 참여. The phone's back button walks back through them.
+  $("#goCreate").addEventListener("click",()=>showStep("create",true));
   $("#goJoin").addEventListener("click",()=>{showStep("join",true);setTimeout(()=>$("#joinRoomInput").focus(),50);});
   $("#landing").addEventListener("click",e=>{
     const g=e.target.closest("[data-goto]");
     if(g){if(navDepth>0)history.back();else{showStep(g.dataset.goto,false);history.replaceState({step:g.dataset.goto},"",g.dataset.goto==="home"?baseUrl():"#"+g.dataset.goto);}return;}
-    const t=e.target.closest("[data-type]");if(t){landingType=t.dataset.type;showStep("create",true);}
+    const f=e.target.closest("[data-forget]");
+    if(f){if(confirm("이 기기의 ‘내 모임’ 목록에서만 빠져요. 모임 데이터는 그대로이고, 링크로 다시 들어가면 목록에 다시 생겨요.")){forgetRoom(f.dataset.forget);renderMyRooms();toast("목록에서 뺐어요");}}
   });
   window.addEventListener("popstate",()=>{navDepth=Math.max(0,navDepth-1);showStep((location.hash||"#home").slice(1)||"home",false);});
 
   const pinInp=$("#pinInput");
+  // 주소 확인: free(쓸 수 있음) / exists(이미 있는 모임) / locked / taken / lockedNoPin
+  async function checkRoom(id,pin){
+    const locked=await isLocked(id);
+    if(pin){
+      if(await keyExists(await deriveKey(id,pin))===true)return "exists";
+      if(locked===true)return "locked";
+      if(await keyExists(id)===true)return "taken";
+      return "free";
+    }
+    if(locked===true)return "lockedNoPin";
+    return await keyExists(id)===true?"exists":"free";
+  }
   $("#landingForm").addEventListener("submit",async e=>{
-    e.preventDefault();inp.value=slugify(inp.value);const id=inp.value;update();if(!ROOM_RE.test(id))return;
+    e.preventDefault();
+    const name=nameInp.value.trim().slice(0,40);
+    if(!name){$("#nameMsg").textContent="모임 이름을 적어주세요";nameInp.focus();return;}
+    inp.value=slugify(inp.value);let id=inp.value;update();
+    if(!ROOM_RE.test(id)){adv.open=true;inp.focus();return;}
     const pin=pinInp.value.trim();
-    if(pin&&pin.length<4){msg.textContent="비밀번호는 4자 이상이에요";pinInp.focus();return;}
-    const btn=$("#roomGo");btn.disabled=true;btn.textContent="확인 중…";
-    const reset=()=>{btn.disabled=false;btn.textContent="모임 만들기";};
+    if(pin&&pin.length<4){adv.open=true;msg.textContent="비밀번호는 4자 이상이에요";pinInp.focus();return;}
+    const btn=$("#roomGo");btn.disabled=true;btn.textContent="만드는 중…";
+    const reset=()=>{btn.textContent="모임 만들기";canGo();};
+    const fail=(text,el)=>{adv.open=true;msg.style.color="";msg.textContent=text;reset();(el||inp).focus();};
     let fresh=true;
     await sdkReady;
     if(fbApp()){
-      const locked=await isLocked(id);
-      if(pin){
-        const key=await deriveKey(id,pin);
-        const ex=await keyExists(key);
-        if(ex===true){if(!confirm(`‘${id}’은(는) 이미 있는 모임이에요. 들어갈까요?`)){reset();return;}fresh=false;}
-        else if(locked===true){msg.textContent="이미 비밀번호가 걸린 주소예요. 다른 주소를 써주세요";reset();inp.focus();return;}
-        else{
-          if(await keyExists(id)===true){msg.textContent="같은 주소의 모임이 이미 있어요. 다른 주소를 써주세요";reset();inp.focus();return;}
-          await lockRoom(id);
-        }
-      }else{
-        if(locked===true){msg.textContent="비밀번호가 걸린 모임 주소예요. 다른 주소를 쓰거나 비밀번호를 입력해주세요";reset();pinInp.focus();return;}
-        const ex=await keyExists(id);
-        if(ex===true){if(!confirm(`‘${id}’은(는) 이미 있는 모임이에요. 들어갈까요?`)){reset();inp.focus();inp.select();return;}fresh=false;}
+      for(let tries=0;;tries++){
+        const r=await checkRoom(id,pin);
+        if(r==="free")break;
+        // 자동으로 만든 주소가 겹치면 조용히 새 주소로 다시 시도
+        if(!addrTouched&&tries<5){id=randomRoom();inp.value=id;update();btn.disabled=true;continue;}
+        if(r==="exists"){if(!confirm(`‘${id}’은(는) 이미 있는 모임이에요. 들어갈까요?`)){fail("다른 주소를 써주세요");inp.select();return;}fresh=false;break;}
+        if(r==="locked"){fail("이미 비밀번호가 걸린 주소예요. 다른 주소를 써주세요");return;}
+        if(r==="taken"){fail("같은 주소의 모임이 이미 있어요. 다른 주소를 써주세요");return;}
+        fail("비밀번호가 걸린 모임 주소예요. 다른 주소를 쓰거나 비밀번호를 입력해주세요",pinInp);return;
       }
+      if(fresh&&pin)await lockRoom(id);
     }
     try{
-      if(fresh)sessionStorage.setItem(NEW_KEY(id),JSON.stringify({type:landingType||"meet",name:$("#meetName").value.trim().slice(0,40)}));
+      if(fresh)sessionStorage.setItem(NEW_KEY(id),JSON.stringify({type:landingType||"",name,desc:$("#meetDesc").value.trim().slice(0,100)}));
     }catch(e){}
     if(pin)setSavedPin(id,pin);
     location.href=roomUrl(id)+(pin?"#k="+encodeURIComponent(pin):"");
@@ -3446,21 +3642,19 @@ function startLanding(){
     location.href=roomUrl(id)+(pin?"#k="+encodeURIComponent(pin):"");
   });
 
-  const rec=recentRooms();
-  $("#recentWrap").hidden=!rec.length;
-  $("#recentList").innerHTML=rec.map(r=>`<a class="recent" href="${esc(roomUrl(r.id))}"><span class="rid">${getSavedPin(r.id)?"🔒 ":""}${esc(r.id)}</span><span class="rn">${esc(r.names||"")}</span><span class="chev" aria-hidden="true">›</span></a>`).join("");
   // ?s= with an id that isn't valid: offer it on the join screen instead of failing silently
   const q=new URLSearchParams(location.search).get("s");
   if(q){jin.value=q;jupdate();history.replaceState({step:"join"},"",baseUrl()+"#join");showStep("join",false);return;}
   const h=(location.hash||"").slice(1);
   history.replaceState({step:h||"home"},"",location.href);
-  showStep(["type","join"].includes(h)?h:"home",false);
+  showStep(["type","create","join","list"].includes(h)?h:"home",false);
 }
 let NEW=null;   // set only when this tab just created the room on the start screen
-function takeNew(){try{const k=NEW_KEY(ROOM),v=sessionStorage.getItem(k);sessionStorage.removeItem(k);NEW=v?JSON.parse(v):null;}catch(e){NEW=null;}if(NEW&&!own(TYPES,NEW.type))NEW.type="meet";if(NEW)NEW.name=str(NEW.name,40);}
+function takeNew(){try{const k=NEW_KEY(ROOM),v=sessionStorage.getItem(k);sessionStorage.removeItem(k);NEW=v?JSON.parse(v):null;}catch(e){NEW=null;}if(NEW&&!own(TYPES,NEW.type))NEW.type="";if(NEW){NEW.name=str(NEW.name,40);NEW.desc=str(NEW.desc,100);}}
 function newRoomTrip(){const t=newTrip(NEW&&NEW.name||"");t.c=Date.now();if(NEW)NEW.tid=t.id;return t;}
 // the type only shapes the first screen: 여행 → trip mode calendar. Every feature stays available afterwards.
-function applyNewType(t){if(!NEW||NEW.tid!==t.id)return false;if(NEW.type==="trip")P(t).set={mode:"trip",n:2};P(t).cfg={type:NEW.type,...TYPE_MENUS[NEW.type]};NEW=null;return true;}
+// 유형을 고르지 않았으면 cfg를 두지 않아요(= 예전 모임처럼 모든 메뉴가 켜짐). 설명은 plan의 d_main 문서로 저장돼요.
+function applyNewType(t){if(!NEW||NEW.tid!==t.id)return false;if(NEW.type){if(NEW.type==="trip")P(t).set={mode:"trip",n:2};P(t).cfg={type:NEW.type,...TYPE_MENUS[NEW.type]};}if(NEW.desc)P(t).desc=NEW.desc;NEW=null;return true;}
 function startApp(){
   document.body.classList.remove("gate-mode");$("#pinGate").hidden=true;
   takeNew();LOCAL=false;READY=false;loadFail=false;
