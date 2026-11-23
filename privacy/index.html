@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ploop 개인정보처리방침</title>
+<meta name="description" content="Ploop(Plan + Loop) 개인정보처리방침 — 로그인 없이 쓰는 모임 일정·정산 서비스가 어떤 정보를 어떻게 다루는지 설명해요.">
+<meta name="theme-color" content="#5B5CF6">
+<link rel="icon" type="image/png" sizes="192x192" href="/PLOOP/icon-192.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --bg:#FBFAFF; --card:#FFFFFF; --ink:#191F28; --sub:#4E5968; --muted:#686F78; --line:#E5E8EB;
+  --b1:#7758F4; --b2:#4F7BFF; --b-soft:#F1EEFF; --brand:#5657E9;
+  --font:"Pretendard Variable","Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.7;letter-spacing:-0.01em;-webkit-font-smoothing:antialiased;word-break:keep-all;
+  background-image:radial-gradient(420px 320px at 85% -40px,rgba(124,92,255,.14),transparent 70%),radial-gradient(380px 300px at -60px 220px,rgba(79,123,255,.10),transparent 70%);background-repeat:no-repeat}
+.wrap{max-width:720px;margin:0 auto;padding:24px 20px 64px}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 0 8px;text-decoration:none;color:inherit}
+.brand img{width:36px;height:36px;border-radius:10px}
+.brand b{font-size:21px;font-weight:800;letter-spacing:-0.03em}
+.brand span{font-size:12px;font-weight:600;color:#6E51E2;background:var(--b-soft);border-radius:999px;padding:3px 9px}
+h1{margin:28px 0 6px;font-size:28px;line-height:1.35;font-weight:800;letter-spacing:-0.03em}
+.date{margin:0 0 20px;font-size:14px;color:var(--muted)}
+.lead{background:var(--card);border:1px solid #EEEAFB;border-radius:18px;padding:18px 20px;margin:0 0 28px;color:var(--sub);box-shadow:0 6px 24px -16px rgba(60,50,140,.18)}
+.lead b{color:var(--ink)}
+h2{margin:36px 0 10px;font-size:19px;font-weight:800;letter-spacing:-0.02em}
+h2 .n{display:inline-grid;place-items:center;width:26px;height:26px;margin-right:8px;border-radius:50%;font-size:13px;font-weight:800;color:#fff;background:linear-gradient(120deg,var(--b1),var(--b2));vertical-align:-5px}
+p{margin:0 0 10px;color:var(--sub)}
+ul{margin:0 0 10px;padding-left:20px;color:var(--sub)}
+li{margin:4px 0}
+strong{color:var(--ink);font-weight:700}
+a{color:var(--brand);text-decoration:none;font-weight:600}
+a:hover{text-decoration:underline}
+table{width:100%;border-collapse:collapse;margin:8px 0 10px;font-size:14px;background:var(--card);border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+th,td{padding:10px 12px;text-align:left;vertical-align:top;border-top:1px solid var(--line)}
+thead th{border-top:0;background:#F7F6FF;color:var(--ink);font-weight:700;font-size:13px}
+td{color:var(--sub)}
+.note{background:var(--b-soft);border-radius:14px;padding:12px 16px;font-size:14px;color:#4F3FB0;margin:10px 0}
+footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media (max-width:420px){h1{font-size:24px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="brand" href="/PLOOP/"><img src="/PLOOP/icon-192.png" alt=""><b>Ploop</b><span>Plan + Loop</span></a>
+
+  <h1>개인정보처리방침</h1>
+  <p class="date">시행일 · 2026년 11월 23일</p>
+
+  <div class="lead">
+    Ploop(플룹)은 <b>회원가입과 로그인이 없는</b> 모임 일정·정산 서비스예요.
+    운영자는 이름, 이메일, 전화번호 같은 <b>개인 식별 정보를 요구하거나 수집하지 않아요.</b>
+    이 문서는 서비스를 쓰는 동안 어떤 정보가 어디에 저장되는지 숨김없이 설명해요.
+  </div>
+
+  <h2><span class="n">1</span>수집·저장되는 정보</h2>
+  <p>Ploop에 저장되는 정보는 <strong>사용자가 모임 화면에 직접 입력한 내용</strong>이 전부예요.</p>
+  <table>
+    <thead><tr><th>정보</th><th>예시</th><th>저장 위치</th></tr></thead>
+    <tbody>
+      <tr><td><strong>모임 정보</strong></td><td>모임 이름, 설명, 유형, 날짜·장소 후보와 투표, 일정</td><td>서버(Firebase)</td></tr>
+      <tr><td><strong>멤버 이름</strong></td><td>모임에 추가한 이름 또는 별명</td><td>서버(Firebase)</td></tr>
+      <tr><td><strong>정산 기록</strong></td><td>지출 내역·금액, 송금 기록</td><td>서버(Firebase)</td></tr>
+      <tr><td><strong>송금 안내 정보</strong></td><td>멤버가 직접 등록한 토스·카카오페이 링크, 계좌번호</td><td>서버(Firebase)</td></tr>
+      <tr><td><strong>이용 편의 정보</strong></td><td>최근 들어간 모임 목록, 내가 고른 멤버, 마지막으로 본 일정(보기용 캐시)</td><td>내 기기(브라우저)에만 저장, 서버로 전송 안 됨</td></tr>
+    </tbody>
+  </table>
+  <ul>
+    <li>모든 데이터는 <strong>HTTPS로 암호화되어 전송</strong>되고, Google Firebase(Firestore)에 저장돼요.</li>
+    <li>모임 비밀번호의 <strong>원문은 서버에 저장되지 않아요.</strong> 비밀번호로 만든 해시값만 데이터 경로에 사용되고, 입력 편의를 위해 내 기기에만 기억돼요.</li>
+    <li>기기에 저장되는 '마지막으로 본 일정' 캐시에는 계좌·송금 안내 정보를 담지 않아요.</li>
+  </ul>
+
+  <h2><span class="n">2</span>수집하지 않는 정보</h2>
+  <ul>
+    <li>계정 정보(이름·이메일·전화번호 등) — 회원가입 자체가 없어요.</li>
+    <li>기기의 위치 정보 — 지도의 장소 검색은 입력한 검색어로만 동작하고, GPS 등 기기 위치에 접근하지 않아요.</li>
+    <li>연락처, 사진, 파일 등 기기 안의 다른 정보.</li>
+    <li>광고 식별자 — 광고가 없고, 별도의 광고·분석 SDK를 사용하지 않아요.</li>
+  </ul>
+
+  <h2><span class="n">3</span>링크 공유와 공개 범위</h2>
+  <p>Ploop은 로그인 대신 <strong>공유 링크가 열쇠</strong>인 서비스예요.</p>
+  <ul>
+    <li><strong>링크를 아는 사람은 누구나</strong> 그 모임의 내용을 보고 수정할 수 있어요. 링크는 믿을 수 있는 사람에게만 공유해주세요.</li>
+    <li>모임 주소는 무작위로 만들어지고, 전체 모임 목록 조회는 서버 규칙으로 차단되어 있어 주소를 모르면 다른 모임을 찾을 수 없어요.</li>
+    <li>더 민감한 모임에는 <strong>비밀번호</strong>를 걸 수 있어요. 비밀번호가 걸린 모임은 주소만으로는 열 수 없어요.</li>
+  </ul>
+  <div class="note">주민등록번호, 카드 번호, 비밀번호 같은 민감한 정보는 모임 내용에 입력하지 말아주세요. 계좌번호 등 송금 안내 정보도 같은 모임의 멤버에게 보여진다는 점을 생각하고 등록해주세요.</div>
+
+  <h2><span class="n">4</span>이용하는 외부 서비스</h2>
+  <p>서비스 제공을 위해 아래 외부 서비스를 이용해요. 각 서비스는 자체 방침에 따라 통신 기록 등을 처리할 수 있어요.</p>
+  <table>
+    <thead><tr><th>서비스</th><th>용도</th><th>방침</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Google Firebase</strong> (Firestore)</td><td>모임 데이터 저장·실시간 동기화</td><td><a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase 개인정보 보호</a></td></tr>
+      <tr><td><strong>카카오맵</strong></td><td>장소 검색·지도 표시(지도 기능을 쓸 때만 불러옴)</td><td><a href="https://www.kakao.com/policy/privacy" target="_blank" rel="noopener">카카오 개인정보처리방침</a></td></tr>
+      <tr><td><strong>GitHub Pages</strong></td><td>웹페이지 호스팅</td><td><a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub Privacy Statement</a></td></tr>
+      <tr><td><strong>글꼴·라이브러리 CDN</strong></td><td>글꼴(Pretendard) 등 정적 파일 제공</td><td>jsDelivr·cdnjs 등</td></tr>
+    </tbody>
+  </table>
+  <p>위 목적 외에 데이터를 제3자에게 제공하거나 판매하지 않아요.</p>
+
+  <h2><span class="n">5</span>보관 기간과 삭제</h2>
+  <ul>
+    <li>모임 데이터는 <strong>사용자가 삭제할 때까지</strong> 보관돼요.</li>
+    <li>모임 화면의 <strong>설정 → 이 모임 삭제</strong>를 누르면 그 모임의 일정·투표·정산 기록이 서버에서 바로 삭제되고 되돌릴 수 없어요.</li>
+    <li>기기에 저장된 목록·캐시는 브라우저의 사이트 데이터 삭제로 지울 수 있어요.</li>
+    <li>직접 삭제하기 어려운 데이터가 있다면 아래 문의 채널로 요청해주세요. 확인 후 지체 없이 삭제할게요.</li>
+  </ul>
+
+  <h2><span class="n">6</span>아동의 개인정보</h2>
+  <p>Ploop은 특정 연령을 대상으로 하지 않으며, 아동의 개인정보를 의도적으로 수집하지 않아요. 애초에 계정과 개인 식별 정보 수집이 없어요.</p>
+
+  <h2><span class="n">7</span>방침의 변경</h2>
+  <p>이 방침이 바뀌면 이 페이지에서 시행일과 함께 고지해요. 중요한 변경이 있으면 서비스 화면에서도 알려드릴게요.</p>
+
+  <h2><span class="n">8</span>문의</h2>
+  <p>개인정보 처리에 대한 질문이나 삭제 요청은 아래 채널로 보내주세요.</p>
+  <ul>
+    <li>GitHub: <a href="https://github.com/zaen92/PLOOP/issues" target="_blank" rel="noopener">github.com/zaen92/PLOOP/issues</a></li>
+  </ul>
+
+  <footer>
+    <span>© Ploop · Plan + Loop</span>
+    <a href="/PLOOP/">Ploop 홈으로 →</a>
+  </footer>
+</div>
+</body>
+</html>
