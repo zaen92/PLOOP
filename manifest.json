@@ -1,8 +1,8 @@
 {
   "id": "/PLOOP/",
-  "name": "Ploop",
-  "short_name": "Ploop",
-  "description": "Plan + Loop · 약속·여행 일정부터 정산까지 링크 하나로 함께",
+  "name": "모이모이",
+  "short_name": "모이모이",
+  "description": "모이모이 · 약속·여행 일정부터 정산까지 링크 하나로 함께",
   "lang": "ko",
   "start_url": "/PLOOP/",
   "scope": "/PLOOP/",

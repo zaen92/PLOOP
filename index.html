@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="color-scheme" content="light">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ploop</title>
-<meta name="application-name" content="Ploop">
+<title>모이모이</title>
+<meta name="application-name" content="모이모이">
 <meta name="description" content="여행·모임 정산을 링크 하나로 같이 정리해요">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Ploop">
-<meta property="og:title" content="Ploop | Plan + Loop">
+<meta property="og:site_name" content="모이모이">
+<meta property="og:title" content="모이모이 | moimoi">
 <meta property="og:description" content="링크만 공유하면 누구나 함께 일정 관리부터 정산까지!">
 <meta property="og:url" content="https://zaen92.github.io/PLOOP/">
 <meta property="og:image" content="https://zaen92.github.io/PLOOP/og-img.png">
@@ -24,7 +24,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/PLOOP/apple-touch-icon.png">
 
 <!-- 아이폰 홈 화면 앱 이름 -->
-<meta name="apple-mobile-web-app-title" content="Ploop">
+<meta name="apple-mobile-web-app-title" content="모이모이">
 
 <!-- 아이폰 전체 화면 실행 -->
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -881,7 +881,7 @@ body.landing-mode,body.gate-mode{background:#FBFAFF}
 
   <!-- 메인 -->
   <section id="stepHome" data-step="home" aria-labelledby="homeTitle">
-    <header class="l-brand"><img src="icon-192.png" alt="" width="36" height="36"><span class="l-word">Ploop</span><span class="l-tag">Plan + Loop</span></header>
+    <header class="l-brand"><img src="icon-192.png" alt="" width="36" height="36"><span class="l-word">모이모이</span><span class="l-tag">moimoi</span></header>
     <div class="l-hero">
       <h1 id="homeTitle">함께하는 계획,<br><span class="l-grad">링크 하나로 끝!</span></h1>
       <p>약속부터 여행 일정, 비용 정산까지 친구들과 간편하게 관리하세요.</p>
@@ -897,7 +897,7 @@ body.landing-mode,body.gate-mode{background:#FBFAFF}
       <p class="mr-note">이 목록은 이 기기(브라우저)에만 저장돼요. 다른 기기와는 동기화되지 않아요. 모임 데이터는 서버에 있으니 링크로 다시 들어가면 돼요.</p>
     </section>
     <section class="l-sec" aria-labelledby="featTitle">
-      <h2 class="l-h2" id="featTitle">Ploop으로 할 수 있는 일</h2>
+      <h2 class="l-h2" id="featTitle">모이모이로 할 수 있는 일</h2>
       <div class="l-feats">
         <article class="l-feat"><span class="l-ic" aria-hidden="true">📅</span><div><h3>약속 잡기</h3><p>되는 날짜를 모으고, 시간·장소 후보에 투표해서 한 번에 확정해요.</p></div></article>
         <article class="l-feat"><span class="l-ic" aria-hidden="true">🧳</span><div><h3>여행 계획</h3><p>여행 날짜를 맞추고 날짜별 일정·장소·숙소를 함께 짜요.</p></div></article>
@@ -986,7 +986,7 @@ body.landing-mode,body.gate-mode{background:#FBFAFF}
 
 <div class="wrap" id="app">
   <div class="topbar">
-    <a class="home-logo" id="goHome" href="./" aria-label="Ploop 홈으로" title="홈"><img src="icon-192.png" alt="" width="32" height="32"></a>
+    <a class="home-logo" id="goHome" href="./" aria-label="모이모이 홈으로" title="홈"><img src="icon-192.png" alt="" width="32" height="32"></a>
     <div class="trips-box" id="tabsBox"><nav class="trips" id="tabs" aria-label="모임 목록"></nav></div>
     <button class="tabs-all" id="tabsAll" aria-label="모임 전체 보기" title="모임 전체 보기" hidden><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><b id="tabsCount"></b></button>
     <button class="tabs-add" id="addTrip" aria-label="같은 링크에 새 모임 추가" title="새 모임">＋</button>
@@ -3230,7 +3230,7 @@ $("#tripName").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefau
 async function copyShare(){
   const url=shareUrl();
   let ok=false;try{await navigator.clipboard.writeText(url);ok=true;}catch(e){}
-  if(!ok&&navigator.share){try{await navigator.share({title:cur().name||"Ploop 모임",url});return;}catch(e){if(e&&e.name==="AbortError")return;}}
+  if(!ok&&navigator.share){try{await navigator.share({title:cur().name||"모이모이 모임",url});return;}catch(e){if(e&&e.name==="AbortError")return;}}
   toast(ok?(PIN?"링크를 복사했어요. 비밀번호가 들어 있어 받은 사람은 바로 들어와요":"링크를 복사했어요. 받은 사람 누구나 같이 볼 수 있어요"):url);
 }
 $("#shareLink").addEventListener("click",copyShare);

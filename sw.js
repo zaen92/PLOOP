@@ -1,4 +1,4 @@
-/* Ploop service worker
+/* 모이모이(moimoi) service worker
  * 업데이트 전략 — 오래된 화면이 남지 않게
  *  1) 화면(HTML) 요청은 항상 네트워크에서 새로 받아요. 캐시에 저장하지 않아요.
  *     → 새 index.html을 올리면 다음에 열 때 바로 새 화면이에요.
@@ -11,7 +11,7 @@
  *     (안 바꿔도 1)번 덕분에 다음 실행부터는 새 화면이에요.)
  *  긴급 해제: 주소 뒤에 ?nosw 를 붙여 한 번 열면 이 서비스 워커가 해제돼요.
  */
-const VERSION = "2026-11-23-1";
+const VERSION = "2026-11-23-2";
 const CACHE = "ploop-" + VERSION;
 const PINNED = [
   /^https:\/\/www\.gstatic\.com\/firebasejs\/\d+\.\d+\.\d+\//,
@@ -27,11 +27,11 @@ self.addEventListener("activate", e => {
   })());
 });
 
-const OFFLINE_HTML = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#5B5CF6"><title>Ploop</title>
+const OFFLINE_HTML = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#5B5CF6"><title>모이모이</title>
 <style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#FBFAFF;color:#191F28;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;padding:24px;box-sizing:border-box;text-align:center}
 .b{max-width:340px}.i{width:72px;height:72px;border-radius:20px;margin:0 auto 18px;display:grid;place-items:center;font-size:34px;font-weight:800;color:#fff;background:linear-gradient(135deg,#7C5CFF,#4F7BFF)}
 h1{font-size:21px;margin:0 0 8px}p{margin:0 0 22px;color:#4E5968;line-height:1.6;font-size:15px}button{min-height:52px;width:100%;border:0;border-radius:14px;background:linear-gradient(120deg,#7C5CFF,#4F7BFF);color:#fff;font-size:16px;font-weight:700}</style></head>
-<body><div class="b"><div class="i">P</div><h1>인터넷 연결이 필요해요</h1><p>Ploop은 친구들과 같은 데이터를 함께 보기 때문에 연결된 상태에서만 열려요. 연결되면 자동으로 다시 열려요.</p><button onclick="location.reload()">다시 시도</button></div>
+<body><div class="b"><div class="i">P</div><h1>인터넷 연결이 필요해요</h1><p>모이모이는 친구들과 같은 데이터를 함께 보기 때문에 연결된 상태에서만 열려요. 연결되면 자동으로 다시 열려요.</p><button onclick="location.reload()">다시 시도</button></div>
 <script>addEventListener("online",()=>location.reload())</script></body></html>`;
 const offline = () => new Response(OFFLINE_HTML, { headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" } });
 
