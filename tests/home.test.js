@@ -193,7 +193,7 @@ const noHScroll = p => p.evaluate(() => document.documentElement.scrollWidth <= 
     await p.goto(BASE + "#create"); await sleep(300);
     const sec = await createRoom(p, { name: "비밀 모임", pin: "4321" });
     check("비밀번호 모임: 링크 형식 ?s=ID#k=PIN", new URL(p.url()).hash === "#k=4321", p.url());
-    db = await L.dump();
+    db = await until(d => Object.keys(d).some(k => k.startsWith(`rooms/${sec}--`)));   // 저장은 0.5초 대기 후 나가요
     check("비밀번호 모임: 데이터는 room--해시 경로, locks 표시", Object.keys(db).some(k => k.startsWith(`rooms/${sec}--`)) && !!db[`locks/${sec}`]);
     const D = await L.newCtx(browser); const s2 = await D.newPage(); watch(s2);
     await s2.goto(BASE + "?s=" + sec + "#k=4321"); await L.waitRoom(s2); await closeJoin(s2);
