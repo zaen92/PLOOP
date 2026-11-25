@@ -309,6 +309,15 @@ const noHScroll = p => p.evaluate(() => document.documentElement.scrollWidth <= 
       const ks = await k.waitForFunction(() => window.__kshare, null, { timeout: 5000 }).then(h => h.jsonValue()).catch(() => null);
       check("카톡 공유: 모임 이름·링크·'모임 들어가기' 버튼으로 카드 전송", !!ks && ks.content.title.startsWith("제주") && ks.content.link.mobileWebUrl.includes("?s=" + jeju) && ks.buttons[0].title === "모임 들어가기", ks ? ks.content.title + " · " + ks.content.link.mobileWebUrl : "호출 안 됨");
       await K.close();
+      // 최신 버전 주소가 없으면(404) 다음 버전으로 넘어가서 보냄
+      const KF = await L.newCtx(browser); const kf = await KF.newPage(); watch(kf);
+      const tried = [];
+      await kf.route(/t1\.kakaocdn\.net\/kakao_js_sdk\//, r => { const u = r.request().url(); tried.push(u.split("/kakao_js_sdk/")[1].split("/")[0]); if (u.includes("/2.8.4/")) r.fulfill({ status: 404, body: "not found" }); else r.fulfill({ contentType: "text/javascript", body: "window.Kakao={_k:null,init(x){this._k=x},isInitialized(){return !!this._k},Share:{sendDefault(o){window.__kshare=o}}};" }); });
+      await kf.goto(BASE + "?s=" + jeju); await L.waitRoom(kf); await closeJoin(kf);
+      await kf.click("#shareKakao");
+      const fbSent = await kf.waitForFunction(() => window.__kshare, null, { timeout: 5000 }).then(() => true, () => false);
+      check("카톡 공유: 최신 SDK 주소가 없으면 다음 버전으로 대신 전송", fbSent && tried.join(",").startsWith("2.8.4,2.7.4"), tried.join(","));
+      await KF.close();
       // 카카오가 오류를 내면: 링크 복사 + 오류 내용 표시
       const KE = await L.newCtx(browser); const ke = await KE.newPage(); watch(ke);
       await ke.route(/t1\.kakaocdn\.net\/kakao_js_sdk\//, r => r.fulfill({ contentType: "text/javascript", body: "window.Kakao={_k:null,init(x){this._k=x},isInitialized(){return !!this._k},Share:{sendDefault(){throw new Error('domain not registered')}}};" }));
