@@ -252,11 +252,101 @@ const noHScroll = p => p.evaluate(() => document.documentElement.scrollWidth <= 
     check("여러 약속: ＋로 추가한 약속이 맨 앞 탭에 선택됨", first);
     await M.close();
 
+    // ── 12-3. 보완 기능: ≡ 버튼 · 삭제 되돌리기 · 카톡 공유 · 캘린더 · 아이폰 안내 · 용어 ──
+    {
+      const J = o => JSON.stringify(o, (k, v) => v && typeof v === "object" && !Array.isArray(v) ? Object.keys(v).sort().reduce((a, x) => (a[x] = v[x], a), {}) : v);
+      const ur = "undo-room-x7";
+      const docsOf = (db, tid) => Object.fromEntries(Object.entries(db).filter(([k]) => k.startsWith(`rooms/${ur}/trips/${tid}`)));
+      await L.seed({
+        [`rooms/${ur}/trips/tA`]: { name: "A 약속", c: 1000, people: [{ id: "p1", name: "가람" }] },
+        [`rooms/${ur}/trips/tA/items/i1`]: { name: "회", amount: 50000, payer: "p1", shares: {}, memo: "", c: 1 },
+        [`rooms/${ur}/trips/tB`]: { name: "B 약속", c: 2000, people: [{ id: "p1", name: "가람" }, { id: "p2", name: "나래" }] },
+        [`rooms/${ur}/trips/tB/items/j1`]: { name: "택시", amount: 12000, payer: "p1", shares: {}, memo: "", c: 1 },
+        [`rooms/${ur}/trips/tB/plan/a_p1`]: { d: ["2026-12-05"] },
+      });
+      const before = await L.dump();
+      const U = await L.newCtx(browser); const u = await U.newPage(); watch(u);
+      await u.goto(BASE + "?s=" + ur); await L.waitRoom(u); await closeJoin(u);
+      check("≡ 버튼: 약속 2개면 숨김", await u.locator("#tabsAll").isHidden());
+      check("용어: 상단 ＋ = '이 링크에 약속 추가'", (await u.getAttribute("#addTrip", "aria-label")) === "이 링크에 약속 추가");
+      // 보고 있던 약속(B) 삭제 → 되돌리기
+      await u.click("#openSettings"); await u.click("#setDelete");
+      let db = await until(d => Object.keys(docsOf(d, "tB")).length === 0);
+      check("삭제: 서버에서 지워짐", Object.keys(docsOf(db, "tB")).length === 0);
+      check("삭제: '되돌리기' 버튼이 '나는 누구?' 창보다 위에 보임", await u.locator("#toast .toast-act").isVisible() && await u.evaluate(() => { const b = document.querySelector("#toast .toast-act").getBoundingClientRect(); const el = document.elementFromPoint(b.x + b.width / 2, b.y + b.height / 2); return !!el && el.classList.contains("toast-act"); }));
+      await u.click("#toast .toast-act");
+      db = await until(d => J(docsOf(d, "tB")) === J(docsOf(before, "tB")));
+      await u.waitForFunction(() => document.querySelector("#tripTitleText").textContent === "B 약속", null, { timeout: 6000 }).catch(() => {});
+      check("되돌리기: 약속·지출·투표가 삭제 전과 똑같이 복구 + 그 약속으로 이동", J(docsOf(db, "tB")) === J(docsOf(before, "tB")) && (await u.textContent("#tripTitleText")) === "B 약속");
+      // A를 지우고 6초 지나면 되돌리기 끝 → 남은 하나뿐인 B 삭제 → 되돌리기 (임시로 만든 빈 약속은 치움)
+      await closeJoin(u); await u.click('#tabs [data-trip="tA"]'); await u.waitForFunction(() => document.querySelector("#tripTitleText").textContent === "A 약속"); await sleep(800);
+      await closeJoin(u); await u.click('#tabs [data-deltrip="tA"]'); await sleep(6500);
+      check("되돌리기 시간이 지나면 버튼 사라짐", !(await u.locator("#toast.act").count()));
+      await closeJoin(u); await u.click("#openSettings"); await u.click("#setDelete");
+      await until(d => Object.keys(docsOf(d, "tB")).length === 0);
+      await u.click("#toast .toast-act");
+      const tripsOnly = d => Object.keys(d).filter(k => new RegExp(`^rooms/${ur}/trips/[^/]+$`).test(k));
+      db = await until(d => tripsOnly(d).length === 1 && tripsOnly(d)[0].endsWith("/tB") && J(docsOf(d, "tB")) === J(docsOf(before, "tB")));
+      check("하나뿐인 약속 되돌리기: 원래대로, 임시 빈 약속은 정리", tripsOnly(db).join(",") === `rooms/${ur}/trips/tB` && J(docsOf(db, "tB")) === J(docsOf(before, "tB")), tripsOnly(db).join(","));
+      await U.close();
+
+      // ≡ 버튼: 약속 3개 이상이면 보임
+      await L.seed({ [`rooms/${ur}/trips/tC`]: { name: "C", c: 3000, people: [] }, [`rooms/${ur}/trips/tD`]: { name: "D", c: 4000, people: [] } });
+      const V = await L.newCtx(browser); const v = await V.newPage(); watch(v);
+      await v.goto(BASE + "?s=" + ur); await L.waitRoom(v); await closeJoin(v);
+      check("≡ 버튼: 약속 3개 이상이면 보임", await v.locator("#tabsAll").isVisible() && (await v.textContent("#tabsCount")) === "3");
+      // 카카오톡 공유: SDK를 못 불러오면 링크 복사로 대신
+      await v.click("#shareKakao"); await sleep(800);
+      check("카톡 공유: SDK 실패 시 링크 복사로 대신(먹통 없음)", (await v.textContent("#toast")).length > 0);
+      await V.close();
+
+      // 카카오톡 공유: (가짜) SDK가 있으면 카드 공유 호출
+      const K = await L.newCtx(browser); const k = await K.newPage(); watch(k);
+      await k.route(/t1\.kakaocdn\.net\/kakao_js_sdk\//, r => r.fulfill({ contentType: "text/javascript", body: "window.Kakao={_k:null,init(x){this._k=x},isInitialized(){return !!this._k},Share:{sendDefault(o){window.__kshare=o}}};" }));
+      await k.goto(BASE + "?s=" + jeju); await L.waitRoom(k); await closeJoin(k);
+      await k.click("#shareKakao");
+      const ks = await k.waitForFunction(() => window.__kshare, null, { timeout: 5000 }).then(h => h.jsonValue()).catch(() => null);
+      check("카톡 공유: 모임 이름·링크·'모임 들어가기' 버튼으로 카드 전송", !!ks && ks.content.title.startsWith("제주") && ks.content.link.mobileWebUrl.includes("?s=" + jeju) && ks.buttons[0].title === "모임 들어가기", ks ? ks.content.title + " · " + ks.content.link.mobileWebUrl : "호출 안 됨");
+      await K.close();
+
+      // 캘린더: 확정된 여행(종일) / 확정된 하루 약속(시간 있음)
+      const cr = "cal-room-q2";
+      await L.seed({
+        [`rooms/${cr}/trips/tT`]: { name: "제주 여행", c: 1, people: [{ id: "p1", name: "가람" }] },
+        [`rooms/${cr}/trips/tT/plan/s_main`]: { mode: "trip", n: 1 },
+        [`rooms/${cr}/trips/tT/plan/f_main`]: { date: "2026-11-28", e: "2026-11-29" },
+      });
+      const C2 = await L.newCtx(browser, { mobile: false }); const c2 = await C2.newPage({ acceptDownloads: true }); watch(c2);
+      await c2.goto(BASE + "?s=" + cr + "#v=vote"); await L.waitRoom(c2); await closeJoin(c2);
+      await c2.evaluate(() => document.querySelector("#tabbar [data-nav=vote]").click()); await sleep(400);
+      const g = await c2.getAttribute(".cal-add a", "href").catch(() => null);
+      check("캘린더: 확정 여행 → 구글 캘린더 종일 일정(11/28~11/29)", !!g && new URL(g).searchParams.get("dates") === "20261128/20261130" && new URL(g).searchParams.get("text") === "제주 여행", g || "버튼 없음");
+      const [dl] = await Promise.all([c2.waitForEvent("download", { timeout: 5000 }).catch(() => null), c2.click("#icsDl").catch(() => {})]);
+      const ics = dl ? require("fs").readFileSync(await dl.path(), "utf8") : "";
+      check("캘린더: .ics 파일(종일 · 규격 형식)", /BEGIN:VCALENDAR/.test(ics) && /DTSTART;VALUE=DATE:20261128/.test(ics) && /DTEND;VALUE=DATE:20261130/.test(ics) && /SUMMARY:제주 여행/.test(ics), ics.split("\r\n").filter(l => /^DT(START|END)/.test(l)).join(" "));
+      await L.seed({
+        [`rooms/${cr}/trips/tM`]: { name: "저녁 약속", c: 2, people: [{ id: "p1", name: "가람" }] },
+        [`rooms/${cr}/trips/tM/plan/o_tm1`]: { k: "time", md: "day", date: "2026-12-05", from: "19:00", to: "21:30", c: 1 },
+        [`rooms/${cr}/trips/tM/plan/f_main`]: { date: "2026-12-05", t: "tm1" },
+      });
+      const C3 = await L.newCtx(browser, { mobile: false }); const c3 = await C3.newPage(); watch(c3);
+      await c3.goto(BASE + "?s=" + cr); await L.waitRoom(c3); await closeJoin(c3);
+      await c3.evaluate(() => document.querySelector("#tabbar [data-nav=vote]").click()); await sleep(400);
+      const g2 = await c3.getAttribute(".cal-add a", "href").catch(() => null);
+      check("캘린더: 시간 확정 약속 → 19:00~21:30 한국 시간(UTC 10:00~12:30)", !!g2 && new URL(g2).searchParams.get("dates") === "20261205T100000Z/20261205T123000Z", g2 ? new URL(g2).searchParams.get("dates") : "버튼 없음");
+      await C2.close(); await C3.close();
+
+      // 아이폰 안내: 아이폰(모바일 컨텍스트)에서는 보이고, 데스크톱에서는 숨김
+      await p.goto(BASE); await sleep(300);
+      check("아이폰 Safari: '홈 화면에 추가' 안내 보임", await p.locator("#iosHint").isVisible());
+    }
+
     // ── 13. 데스크톱 폭 ──
     const W = await L.newCtx(browser, { mobile: false }); const w = await W.newPage(); watch(w);
     await w.goto(BASE + "?s=" + gang); await L.waitRoom(w); await closeJoin(w);
     await w.goto(BASE); await sleep(300);
     check("데스크톱: 홈 정상, 가로 스크롤 없음", await w.locator(".mr-card").count() === 1 && await noHScroll(w));
+    check("데스크톱: 아이폰 안내 숨김", await w.locator("#iosHint").isHidden());
 
     check("페이지 JS 오류 없음", errors.length === 0, errors.slice(0, 3).join(" | "));
     check("실제 Firebase/Google API 요청 0건 (모두 차단)", L.blocked.length === 0, L.blocked.slice(0, 2).join(" "));

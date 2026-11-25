@@ -1,0 +1,13 @@
+{
+  "name": "moimoi-rules-test",
+  "private": true,
+  "description": "Firestore 보안 규칙 검증 (에뮬레이터 전용, 실제 DB에 연결하지 않음)",
+  "scripts": {
+    "test": "firebase emulators:exec --only firestore --project demo-moimoi \"node rules.test.js\""
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "^3.0.0",
+    "firebase": "^10.12.2",
+    "firebase-tools": "^13.0.0"
+  }
+}
