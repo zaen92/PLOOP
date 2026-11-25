@@ -3345,18 +3345,19 @@ function loadKakaoOne(v){
   return new Promise((res,rej)=>{
     const s=document.createElement("script");s.src=`https://t1.kakaocdn.net/kakao_js_sdk/${v}/kakao.min.js`;   // crossorigin 없이: CDN의 CORS 설정과 상관없이 불러와요
     const tm=setTimeout(()=>{s.remove();rej(new Error("timeout "+v));},8000);
-    s.onload=()=>{clearTimeout(tm);window.Kakao&&window.Kakao.Share?res(window.Kakao):rej(new Error("no-share "+v));};
+    // SDK 2.x는 Kakao.init() 뒤에야 Kakao.Share가 생겨요 — 여기서는 Kakao 객체만 확인
+    s.onload=()=>{clearTimeout(tm);window.Kakao&&typeof window.Kakao.init==="function"?res(window.Kakao):rej(new Error("no-kakao "+v));};
     s.onerror=()=>{clearTimeout(tm);s.remove();rej(new Error("load-failed "+v));};
     document.head.append(s);
   });
 }
 function loadKakao(){
-  if(window.Kakao&&window.Kakao.Share)return Promise.resolve(window.Kakao);
+  if(window.Kakao&&typeof window.Kakao.init==="function")return Promise.resolve(window.Kakao);
   if(kakaoP)return kakaoP;
   kakaoP=(async()=>{
     const errs=[];
     for(const v of KAKAO_SDK_VERSIONS){
-      try{return await loadKakaoOne(v);}catch(e){errs.push(e.message);if(/^no-share/.test(e.message))break;}   // 받았는데 공유 기능이 없으면 다른 버전도 같아요
+      try{return await loadKakaoOne(v);}catch(e){errs.push(e.message);if(/^no-kakao/.test(e.message))break;}   // 받았는데 Kakao 객체가 없으면 다른 버전도 같아요
     }
     throw new Error(errs.join(", "));
   })().catch(e=>{kakaoP=null;throw e;});
@@ -3373,7 +3374,7 @@ function kakaoMsg(t,url){
 function kakaoFail(e,stage){
   console.warn("[moimoi] 카카오톡 공유 실패("+stage+"), 링크 복사로 대신해요",e);
   const msg=String((e&&e.message)||e||"").slice(0,90);
-  const why=stage==="load"?(/no-share/.test(msg)?"카카오 SDK는 받았지만 공유 기능이 없어요":/^timeout|, timeout/.test(msg)&&!/load-failed/.test(msg)?"카카오 응답이 늦어요":"카카오 SDK를 불러오지 못했어요")+` (${msg})`:stage==="init"?"카카오 앱 키를 확인해 주세요 ("+msg+")":"카카오 공유 오류: "+msg;
+  const why=stage==="load"?(/no-kakao/.test(msg)?"카카오 SDK 파일이 올바르지 않아요":/^timeout|, timeout/.test(msg)&&!/load-failed/.test(msg)?"카카오 응답이 늦어요":"카카오 SDK를 불러오지 못했어요")+` (${msg})`:stage==="init"?"카카오 앱 키를 확인해 주세요 ("+msg+")":"카카오 공유 오류: "+msg;
   Promise.resolve(copyShare()).catch(()=>{}).finally(()=>setTimeout(()=>toast(`카카오톡을 열지 못해 링크를 복사했어요 · ${why}`),50));
 }
 async function shareKakao(){
@@ -3381,10 +3382,11 @@ async function shareKakao(){
   if(!key||!t){copyShare();return;}
   let stage="load";
   try{
-    const t0=Date.now(),ready=!!(window.Kakao&&window.Kakao.Share);
+    const t0=Date.now(),ready=!!(window.Kakao&&typeof window.Kakao.init==="function");
     if(!ready)toast("카카오톡을 여는 중이에요…");
     const K=await loadKakao();
     stage="init";if(!K.isInitialized())K.init(key);
+    if(!K.Share)throw new Error("init 후에도 Kakao.Share 없음");
     const send=()=>{try{K.Share.sendDefault(kakaoMsg(t,url));}catch(e){kakaoFail(e,"send");}};
     // SDK를 받는 데 오래 걸렸으면 브라우저가 '직접 누른 동작'으로 안 볼 수 있어서, 한 번 더 누르게 해요
     if(!ready&&Date.now()-t0>2500){toastAction("카카오톡 준비가 끝났어요","보내기",send,10000);return;}
