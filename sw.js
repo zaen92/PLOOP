@@ -11,7 +11,7 @@
  *     (안 바꿔도 1)번 덕분에 다음 실행부터는 새 화면이에요.)
  *  긴급 해제: 주소 뒤에 ?nosw 를 붙여 한 번 열면 이 서비스 워커가 해제돼요.
  */
-const VERSION = "2026-11-25-2";
+const VERSION = "2026-11-25-3";
 const CACHE = "ploop-" + VERSION;
 const PINNED = [
   /^https:\/\/www\.gstatic\.com\/firebasejs\/\d+\.\d+\.\d+\//,
