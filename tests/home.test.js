@@ -224,6 +224,34 @@ const noHScroll = p => p.evaluate(() => document.documentElement.scrollWidth <= 
       check("이전 버전 앱(2026-10-29-5)이 편집해도 설명(d_main) 보존", dm && dm[1].t === "경포대 산책" && Object.values(gd).some(v => v.name === "강릉 1박 2일 (구버전 수정)"));
     } else check("이전 버전 호환 테스트 (OLD_HTML 미지정으로 건너뜀)", true, "skipped");
 
+    // ── 12-2. 한 링크에 약속이 여러 개: 최근에 만든 약속이 먼저 ──
+    const mr = "multi-room-9q";
+    const trip = (id, name, c) => ({ [`rooms/${mr}/trips/${id}`]: { name, c, people: [{ id: "m1", name: "가람" }] } });
+    await L.seed({ ...trip("tOld", "1월 모임", 1000), ...trip("tMid", "2월 모임", 2000), ...trip("tNew", "3월 모임", 3000) });
+    const M = await L.newCtx(browser);
+    const m1 = await M.newPage(); watch(m1);
+    const titleIs = (pg, t) => pg.waitForFunction(x => document.querySelector("#tripTitleText").textContent === x, t, { timeout: 8000 }).then(() => true, () => false);
+    await m1.goto(BASE + "?s=" + mr); await L.waitRoom(m1); await closeJoin(m1);
+    check("여러 약속: 링크로 들어오면 가장 최근 약속(3월)이 열림", await titleIs(m1, "3월 모임"), await m1.textContent("#tripTitleText"));
+    const tabs = await m1.$$eval("#tabs .trip", els => els.map(e => e.textContent));
+    check("여러 약속: 탭 순서 = 최근 만든 순", tabs.join(",") === "3월 모임,2월 모임,1월 모임", tabs.join(","));
+    await m1.click('#tabs [data-trip="tOld"]');
+    const picked = await titleIs(m1, "1월 모임");
+    await m1.reload(); await L.waitRoom(m1); await closeJoin(m1);
+    check("여러 약속: 직접 고른 약속은 새로고침해도 유지", picked && await titleIs(m1, "1월 모임"), await m1.textContent("#tripTitleText"));
+    const m2 = await M.newPage(); watch(m2);
+    await m2.goto(BASE + "?s=" + mr); await L.waitRoom(m2); await closeJoin(m2);
+    check("여러 약속: 새 탭으로 다시 들어오면 다시 최근 약속(3월)", await titleIs(m2, "3월 모임"), await m2.textContent("#tripTitleText"));
+    await sleep(1200);   // 마지막으로 본 일정(캐시) 저장 대기
+    await L.seed(trip("tNewer", "4월 모임", 4000));   // 그사이 친구가 새 약속을 만듦 (이 기기 캐시에는 없음)
+    const m3 = await M.newPage(); watch(m3);
+    await m3.goto(BASE + "?s=" + mr); await L.waitRoom(m3); await closeJoin(m3);
+    check("여러 약속: 캐시에 없던 새 약속도 들어오면 맨 먼저 열림(4월)", await titleIs(m3, "4월 모임"), await m3.textContent("#tripTitleText"));
+    await m3.click("#addTrip"); await m3.locator("#tripName").blur(); await sleep(600);
+    const first = await m3.$eval("#tabs .trip-wrap:first-child", el => el.classList.contains("on"));
+    check("여러 약속: ＋로 추가한 약속이 맨 앞 탭에 선택됨", first);
+    await M.close();
+
     // ── 13. 데스크톱 폭 ──
     const W = await L.newCtx(browser, { mobile: false }); const w = await W.newPage(); watch(w);
     await w.goto(BASE + "?s=" + gang); await L.waitRoom(w); await closeJoin(w);
