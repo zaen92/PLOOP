@@ -3343,24 +3343,41 @@ function loadKakao(){
   if(window.Kakao&&window.Kakao.Share)return Promise.resolve(window.Kakao);
   if(kakaoP)return kakaoP;
   kakaoP=new Promise((res,rej)=>{
-    const s=document.createElement("script");s.src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js";s.crossOrigin="anonymous";
+    const s=document.createElement("script");s.src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js";   // crossorigin 없이: CDN의 CORS 설정과 상관없이 불러와요
     s.onload=()=>window.Kakao&&window.Kakao.Share?res(window.Kakao):rej(new Error("no Kakao"));
     s.onerror=()=>rej(new Error("load failed"));
     setTimeout(()=>rej(new Error("timeout")),8000);document.head.append(s);
   }).catch(e=>{kakaoP=null;throw e;});
   return kakaoP;
 }
+function kakaoMsg(t,url){
+  const pl=P(t),n=t.people.length;
+  const desc=pl.fix?`📅 ${fixRange(pl)}${n?` · 👥 ${n}명`:""}`:((pl.desc||"").trim()||"되는 날짜를 골라주세요! 링크만 누르면 바로 참여해요");
+  return {objectType:"feed",
+    content:{title:(t.name||"모이모이 모임").slice(0,40),description:desc.slice(0,80),imageUrl:new URL("og-img.png?v=2",location.href).href,imageWidth:1200,imageHeight:630,link:{mobileWebUrl:url,webUrl:url}},
+    buttons:[{title:"모임 들어가기",link:{mobileWebUrl:url,webUrl:url}}]};
+}
+// 실패하면 링크 복사로 대신하고, 어느 단계에서 왜 안 됐는지 짧게 보여줘요 (원인 찾기용)
+function kakaoFail(e,stage){
+  console.warn("[moimoi] 카카오톡 공유 실패("+stage+"), 링크 복사로 대신해요",e);
+  const msg=String((e&&e.message)||e||"").slice(0,60);
+  const why=stage==="load"?(/timeout/.test(msg)?"카카오 응답이 늦어요":"카카오 SDK를 불러오지 못했어요"):stage==="init"?"카카오 앱 키를 확인해 주세요 ("+msg+")":"카카오 공유 오류: "+msg;
+  Promise.resolve(copyShare()).catch(()=>{}).finally(()=>setTimeout(()=>toast(`카카오톡을 열지 못해 링크를 복사했어요 · ${why}`),50));
+}
 async function shareKakao(){
   const key=(window.KAKAO_MAP_KEY||"").trim(),t=cur(),url=shareUrl();
   if(!key||!t){copyShare();return;}
+  let stage="load";
   try{
-    const K=await loadKakao();if(!K.isInitialized())K.init(key);
-    const pl=P(t),n=t.people.length;
-    const desc=pl.fix?`📅 ${fixRange(pl)}${n?` · 👥 ${n}명`:""}`:((pl.desc||"").trim()||"되는 날짜를 골라주세요! 링크만 누르면 바로 참여해요");
-    K.Share.sendDefault({objectType:"feed",
-      content:{title:(t.name||"모이모이 모임").slice(0,40),description:desc.slice(0,80),imageUrl:new URL("og-img.png?v=2",location.href).href,imageWidth:1200,imageHeight:630,link:{mobileWebUrl:url,webUrl:url}},
-      buttons:[{title:"모임 들어가기",link:{mobileWebUrl:url,webUrl:url}}]});
-  }catch(e){console.warn("[moimoi] 카카오톡 공유를 못 열어서 링크 복사로 대신해요",e);copyShare();}
+    const t0=Date.now(),ready=!!(window.Kakao&&window.Kakao.Share);
+    if(!ready)toast("카카오톡을 여는 중이에요…");
+    const K=await loadKakao();
+    stage="init";if(!K.isInitialized())K.init(key);
+    const send=()=>{try{K.Share.sendDefault(kakaoMsg(t,url));}catch(e){kakaoFail(e,"send");}};
+    // SDK를 받는 데 오래 걸렸으면 브라우저가 '직접 누른 동작'으로 안 볼 수 있어서, 한 번 더 누르게 해요
+    if(!ready&&Date.now()-t0>2500){toastAction("카카오톡 준비가 끝났어요","보내기",send,10000);return;}
+    send();
+  }catch(e){kakaoFail(e,stage);}
 }
 $("#shareKakao").addEventListener("click",shareKakao);
 /* ---------- 4단계: 메뉴 · 헤더 요약 · 대시보드 · 더보기 · 모임 설정 ---------- */

@@ -297,7 +297,8 @@ const noHScroll = p => p.evaluate(() => document.documentElement.scrollWidth <= 
       check("≡ 버튼: 약속 3개 이상이면 보임", await v.locator("#tabsAll").isVisible() && (await v.textContent("#tabsCount")) === "3");
       // 카카오톡 공유: SDK를 못 불러오면 링크 복사로 대신
       await v.click("#shareKakao"); await sleep(800);
-      check("카톡 공유: SDK 실패 시 링크 복사로 대신(먹통 없음)", (await v.textContent("#toast")).length > 0);
+      await sleep(400);
+      check("카톡 공유: SDK 실패 시 링크 복사 + 이유 표시", /링크를 복사했어요 · 카카오 SDK를 불러오지 못했어요/.test(await v.textContent("#toast")), await v.textContent("#toast"));
       await V.close();
 
       // 카카오톡 공유: (가짜) SDK가 있으면 카드 공유 호출
@@ -308,6 +309,24 @@ const noHScroll = p => p.evaluate(() => document.documentElement.scrollWidth <= 
       const ks = await k.waitForFunction(() => window.__kshare, null, { timeout: 5000 }).then(h => h.jsonValue()).catch(() => null);
       check("카톡 공유: 모임 이름·링크·'모임 들어가기' 버튼으로 카드 전송", !!ks && ks.content.title.startsWith("제주") && ks.content.link.mobileWebUrl.includes("?s=" + jeju) && ks.buttons[0].title === "모임 들어가기", ks ? ks.content.title + " · " + ks.content.link.mobileWebUrl : "호출 안 됨");
       await K.close();
+      // 카카오가 오류를 내면: 링크 복사 + 오류 내용 표시
+      const KE = await L.newCtx(browser); const ke = await KE.newPage(); watch(ke);
+      await ke.route(/t1\.kakaocdn\.net\/kakao_js_sdk\//, r => r.fulfill({ contentType: "text/javascript", body: "window.Kakao={_k:null,init(x){this._k=x},isInitialized(){return !!this._k},Share:{sendDefault(){throw new Error('domain not registered')}}};" }));
+      await ke.goto(BASE + "?s=" + jeju); await L.waitRoom(ke); await closeJoin(ke);
+      await ke.click("#shareKakao"); await sleep(900);
+      check("카톡 공유: 카카오 오류면 이유를 보여줌", /카카오 공유 오류: domain not registered/.test(await ke.textContent("#toast")), await ke.textContent("#toast"));
+      await KE.close();
+      // SDK가 늦게 받아지면: '보내기'를 한 번 더 눌러 보냄
+      const KS = await L.newCtx(browser); const ks2 = await KS.newPage(); watch(ks2);
+      await ks2.route(/t1\.kakaocdn\.net\/kakao_js_sdk\//, async r => { await sleep(3000); r.fulfill({ contentType: "text/javascript", body: "window.Kakao={_k:null,init(x){this._k=x},isInitialized(){return !!this._k},Share:{sendDefault(o){window.__kshare=o}}};" }); });
+      await ks2.goto(BASE + "?s=" + jeju); await L.waitRoom(ks2); await closeJoin(ks2);
+      await ks2.click("#shareKakao");
+      await ks2.waitForSelector("#toast.act .toast-act", { timeout: 8000 }).catch(() => {});
+      const slowBtn = (await ks2.textContent("#toast")) || "";
+      await ks2.click("#toast .toast-act").catch(() => {});
+      const sent2 = await ks2.waitForFunction(() => window.__kshare, null, { timeout: 4000 }).then(() => true, () => false);
+      check("카톡 공유: SDK가 늦으면 '보내기' 한 번 더 → 전송", /보내기/.test(slowBtn) && sent2, slowBtn);
+      await KS.close();
 
       // 캘린더: 확정된 여행(종일) / 확정된 하루 약속(시간 있음)
       const cr = "cal-room-q2";
