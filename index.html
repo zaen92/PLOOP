@@ -3339,15 +3339,27 @@ $("#shareLink").addEventListener("click",copyShare);
 /* 카카오톡 공유: 버튼 한 번에 '모임 들어가기' 버튼이 달린 카드로 보내요.
    SDK는 누를 때만 불러오고, 못 불러오거나 카카오 설정(사이트 도메인 등록)이 안 돼 있으면 링크 복사로 대신해요. */
 let kakaoP=null;
+// 카카오 공식 경로: t1.kakaocdn.net/kakao_js_sdk/{버전}/kakao.min.js — 최신부터 차례로 시도해요
+const KAKAO_SDK_VERSIONS=["2.8.4","2.7.4","2.7.2"];
+function loadKakaoOne(v){
+  return new Promise((res,rej)=>{
+    const s=document.createElement("script");s.src=`https://t1.kakaocdn.net/kakao_js_sdk/${v}/kakao.min.js`;   // crossorigin 없이: CDN의 CORS 설정과 상관없이 불러와요
+    const tm=setTimeout(()=>{s.remove();rej(new Error("timeout "+v));},8000);
+    s.onload=()=>{clearTimeout(tm);window.Kakao&&window.Kakao.Share?res(window.Kakao):rej(new Error("no-share "+v));};
+    s.onerror=()=>{clearTimeout(tm);s.remove();rej(new Error("load-failed "+v));};
+    document.head.append(s);
+  });
+}
 function loadKakao(){
   if(window.Kakao&&window.Kakao.Share)return Promise.resolve(window.Kakao);
   if(kakaoP)return kakaoP;
-  kakaoP=new Promise((res,rej)=>{
-    const s=document.createElement("script");s.src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js";   // crossorigin 없이: CDN의 CORS 설정과 상관없이 불러와요
-    s.onload=()=>window.Kakao&&window.Kakao.Share?res(window.Kakao):rej(new Error("no Kakao"));
-    s.onerror=()=>rej(new Error("load failed"));
-    setTimeout(()=>rej(new Error("timeout")),8000);document.head.append(s);
-  }).catch(e=>{kakaoP=null;throw e;});
+  kakaoP=(async()=>{
+    const errs=[];
+    for(const v of KAKAO_SDK_VERSIONS){
+      try{return await loadKakaoOne(v);}catch(e){errs.push(e.message);if(/^no-share/.test(e.message))break;}   // 받았는데 공유 기능이 없으면 다른 버전도 같아요
+    }
+    throw new Error(errs.join(", "));
+  })().catch(e=>{kakaoP=null;throw e;});
   return kakaoP;
 }
 function kakaoMsg(t,url){
@@ -3360,8 +3372,8 @@ function kakaoMsg(t,url){
 // 실패하면 링크 복사로 대신하고, 어느 단계에서 왜 안 됐는지 짧게 보여줘요 (원인 찾기용)
 function kakaoFail(e,stage){
   console.warn("[moimoi] 카카오톡 공유 실패("+stage+"), 링크 복사로 대신해요",e);
-  const msg=String((e&&e.message)||e||"").slice(0,60);
-  const why=stage==="load"?(/timeout/.test(msg)?"카카오 응답이 늦어요":"카카오 SDK를 불러오지 못했어요"):stage==="init"?"카카오 앱 키를 확인해 주세요 ("+msg+")":"카카오 공유 오류: "+msg;
+  const msg=String((e&&e.message)||e||"").slice(0,90);
+  const why=stage==="load"?(/no-share/.test(msg)?"카카오 SDK는 받았지만 공유 기능이 없어요":/^timeout|, timeout/.test(msg)&&!/load-failed/.test(msg)?"카카오 응답이 늦어요":"카카오 SDK를 불러오지 못했어요")+` (${msg})`:stage==="init"?"카카오 앱 키를 확인해 주세요 ("+msg+")":"카카오 공유 오류: "+msg;
   Promise.resolve(copyShare()).catch(()=>{}).finally(()=>setTimeout(()=>toast(`카카오톡을 열지 못해 링크를 복사했어요 · ${why}`),50));
 }
 async function shareKakao(){
