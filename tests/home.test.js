@@ -303,7 +303,7 @@ const noHScroll = p => p.evaluate(() => document.documentElement.scrollWidth <= 
 
       // 카카오톡 공유: (가짜) SDK가 있으면 카드 공유 호출
       const K = await L.newCtx(browser); const k = await K.newPage(); watch(k);
-      await k.route(/t1\.kakaocdn\.net\/kakao_js_sdk\//, r => r.fulfill({ contentType: "text/javascript", body: "window.Kakao={_k:null,init(x){this._k=x},isInitialized(){return !!this._k},Share:{sendDefault(o){window.__kshare=o}}};" }));
+      await k.route(/t1\.kakaocdn\.net\/kakao_js_sdk\//, r => r.fulfill({ contentType: "text/javascript", body: "window.Kakao={_k:null,init(x){this._k=x;this.Share={sendDefault(o){window.__kshare=o}}},isInitialized(){return !!this._k}};" }));
       await k.goto(BASE + "?s=" + jeju); await L.waitRoom(k); await closeJoin(k);
       await k.click("#shareKakao");
       const ks = await k.waitForFunction(() => window.__kshare, null, { timeout: 5000 }).then(h => h.jsonValue()).catch(() => null);
@@ -312,7 +312,7 @@ const noHScroll = p => p.evaluate(() => document.documentElement.scrollWidth <= 
       // 최신 버전 주소가 없으면(404) 다음 버전으로 넘어가서 보냄
       const KF = await L.newCtx(browser); const kf = await KF.newPage(); watch(kf);
       const tried = [];
-      await kf.route(/t1\.kakaocdn\.net\/kakao_js_sdk\//, r => { const u = r.request().url(); tried.push(u.split("/kakao_js_sdk/")[1].split("/")[0]); if (u.includes("/2.8.4/")) r.fulfill({ status: 404, body: "not found" }); else r.fulfill({ contentType: "text/javascript", body: "window.Kakao={_k:null,init(x){this._k=x},isInitialized(){return !!this._k},Share:{sendDefault(o){window.__kshare=o}}};" }); });
+      await kf.route(/t1\.kakaocdn\.net\/kakao_js_sdk\//, r => { const u = r.request().url(); tried.push(u.split("/kakao_js_sdk/")[1].split("/")[0]); if (u.includes("/2.8.4/")) r.fulfill({ status: 404, body: "not found" }); else r.fulfill({ contentType: "text/javascript", body: "window.Kakao={_k:null,init(x){this._k=x;this.Share={sendDefault(o){window.__kshare=o}}},isInitialized(){return !!this._k}};" }); });
       await kf.goto(BASE + "?s=" + jeju); await L.waitRoom(kf); await closeJoin(kf);
       await kf.click("#shareKakao");
       const fbSent = await kf.waitForFunction(() => window.__kshare, null, { timeout: 5000 }).then(() => true, () => false);
@@ -320,14 +320,14 @@ const noHScroll = p => p.evaluate(() => document.documentElement.scrollWidth <= 
       await KF.close();
       // 카카오가 오류를 내면: 링크 복사 + 오류 내용 표시
       const KE = await L.newCtx(browser); const ke = await KE.newPage(); watch(ke);
-      await ke.route(/t1\.kakaocdn\.net\/kakao_js_sdk\//, r => r.fulfill({ contentType: "text/javascript", body: "window.Kakao={_k:null,init(x){this._k=x},isInitialized(){return !!this._k},Share:{sendDefault(){throw new Error('domain not registered')}}};" }));
+      await ke.route(/t1\.kakaocdn\.net\/kakao_js_sdk\//, r => r.fulfill({ contentType: "text/javascript", body: "window.Kakao={_k:null,init(x){this._k=x;this.Share={sendDefault(){throw new Error('domain not registered')}}},isInitialized(){return !!this._k}};" }));
       await ke.goto(BASE + "?s=" + jeju); await L.waitRoom(ke); await closeJoin(ke);
       await ke.click("#shareKakao"); await sleep(900);
       check("카톡 공유: 카카오 오류면 이유를 보여줌", /카카오 공유 오류: domain not registered/.test(await ke.textContent("#toast")), await ke.textContent("#toast"));
       await KE.close();
       // SDK가 늦게 받아지면: '보내기'를 한 번 더 눌러 보냄
       const KS = await L.newCtx(browser); const ks2 = await KS.newPage(); watch(ks2);
-      await ks2.route(/t1\.kakaocdn\.net\/kakao_js_sdk\//, async r => { await sleep(3000); r.fulfill({ contentType: "text/javascript", body: "window.Kakao={_k:null,init(x){this._k=x},isInitialized(){return !!this._k},Share:{sendDefault(o){window.__kshare=o}}};" }); });
+      await ks2.route(/t1\.kakaocdn\.net\/kakao_js_sdk\//, async r => { await sleep(3000); r.fulfill({ contentType: "text/javascript", body: "window.Kakao={_k:null,init(x){this._k=x;this.Share={sendDefault(o){window.__kshare=o}}},isInitialized(){return !!this._k}};" }); });
       await ks2.goto(BASE + "?s=" + jeju); await L.waitRoom(ks2); await closeJoin(ks2);
       await ks2.click("#shareKakao");
       await ks2.waitForSelector("#toast.act .toast-act", { timeout: 8000 }).catch(() => {});
